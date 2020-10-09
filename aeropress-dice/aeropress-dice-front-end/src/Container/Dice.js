@@ -1,125 +1,268 @@
-import { TextureLoader} from "three";
-import React, { useState, Suspense } from "react";
+import { TextureLoader } from "three";
+import React, { useState, Suspense, useEffect } from "react";
 import { Canvas } from "react-three-fiber";
 import { Physics, usePlane, useBox } from "use-cannon";
-
-function Plane(props) {
-	const [ref] = usePlane(() => ({
-		rotation: [-Math.PI / 2, 0, 0],
-		...props,
-	}));
-	return (
-		<mesh ref={ref} receiveShadow>
-			<planeBufferGeometry attach="geometry" args={[1009, 1000]} />
-			<shadowMaterial attach="material" color="#4d4d4d" />
-		</mesh>
-	);
-}
-
-function Cube(props) {
-/*
-"textures/stir/stir2.jpeg"
-"textures/stir/stir1.jpeg"
-"textures/stir/two-direction.jpeg"
-"textures/stir/no-stir.jpeg"
-"textures/stir/compass.jpeg"
-"textures/your-choice.jpeg"
-"textures/ratio/12-200.jpeg"
-"textures/ratio/15-200.jpeg"
-"textures/ratio/15-250.jpeg"
-"textures/ratio/24-200.jpeg"
-"textures/ratio/30-200.jpeg"
-"textures/your-choice.jpeg"
-"textures/temperature/75C.jpeg"
-"textures/temperature/80C.jpeg"
-"textures/temperature/85C.jpeg"
-"textures/temperature/90C.jpeg"
-"textures/temperature/95C.jpeg"
-"textures/your-choice.jpeg"
-"textures/bloom/inverted-no-bloom.jpeg"
-"textures/bloom/inverted-30-60.jpeg"
-"textures/bloom/standard-no-bloom.jpeg"
-"textures/bloom/inverted-30-30.jpeg"
-"textures/bloom/standard-30-30.jpeg"
-"textures/bloom/standard-30-60.jpeg"
-"textures/grind/fine-60.jpeg"
-"textures/grind/coarse-4.jpeg"
-"textures/grind/very-fine-30.jpeg"
-"textures/grind/med-fine-90.jpeg"
-"textures/grind/medium-120.jpeg"
-"textures/your-choice.jpeg"
-*/
-	const stir1 = React.useMemo(() => new TextureLoader().load("textures/stir/stir1.jpeg"), [])
-	const stir2 = React.useMemo(() => new TextureLoader().load("textures/stir/stir2.jpeg"), [])
-	const stir3 = React.useMemo(() => new TextureLoader().load("textures/stir/two-direction.jpeg"), [])
-	const stir4 = React.useMemo(() => new TextureLoader().load("textures/stir/no-stir.jpeg"), [])
-	const stir5 = React.useMemo(() => new TextureLoader().load("textures/stir/compass.jpeg"), [])
-	const stir6 = React.useMemo(() => new TextureLoader().load("textures/your-choice.jpeg"), [])
-
-	const [hovered, setHover] = useState(false);
-	const [active, setActive] = useState(false);
-
-	const [ref] = useBox(() => ({
-		mass: 1,
-		position: [0, 5, 0],
-		rotation: [0.4, 0.2, 0.5],
-		...props,
-	}));
-
-	return (
-		<mesh
-			receiveShadow
-			castShadow
-			ref={ref}
-			{...props}
-			// ref={mesh}
-			scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
-			onClick={(e) => setActive(!active)}
-			onPointerOver={(e) => setHover(true)}
-			onPointerOut={(e) => setHover(false)}
-		>
-			<boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-			<meshStandardMaterial
-				attachArray="material"
-				map={stir1}
-				color={hovered ? "hotpink" : "white"}
-			/>
-			<meshStandardMaterial map={stir2} attachArray="material" color={hovered ? "hotpink" : "white"}/>
-      		<meshStandardMaterial map={stir3} attachArray="material" color={hovered ? "hotpink" : "white"}/>
-      		<meshStandardMaterial map={stir4} attachArray="material" color={hovered ? "hotpink" : "white"}/>
-      		<meshStandardMaterial map={stir5} attachArray="material" color={hovered ? "hotpink" : "white"}/>
-      		<meshStandardMaterial map={stir6} attachArray="material" color={hovered ? "hotpink" : "white"}/>
-		</mesh>
-	);
-}
+import { useSpring, a } from "@react-spring/three";
+import { OrbitControls, Text, HTML } from "drei";
+// import { useStore, useScore } from "../store";
 
 export default function Dice() {
+	function Plane(props) {
+		const [ref] = usePlane(() => ({
+			rotation: [-Math.PI / 2, 0, 0],
+			...props,
+		}));
+		return (
+			<mesh
+				ref={ref}
+				receiveShadow
+				position={[0, -1, 0]}
+				rotation={[-0.5 * Math.PI, 0, 0]}
+			>
+				<planeBufferGeometry attach="geometry" args={[100, 100]} />
+				<shadowMaterial attach="material" color="black" />
+			</mesh>
+		);
+	}
+
+	function Cube(props) {
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/* file paths to custom textures
+		"textures/stir/stir2.jpeg"
+		"textures/stir/stir1.jpeg"
+		"textures/stir/two-direction.jpeg"
+		"textures/stir/no-stir.jpeg"
+		"textures/stir/compass.jpeg"
+		"textures/your-choice.jpeg"
+		"textures/ratio/12-200.jpeg"
+		"textures/ratio/15-200.jpeg"
+		"textures/ratio/15-250.jpeg"
+		"textures/ratio/24-200.jpeg"
+		"textures/ratio/30-200.jpeg"
+		"textures/your-choice.jpeg"
+		"textures/temperature/75C.jpeg"
+		"textures/temperature/80C.jpeg"
+		"textures/temperature/85C.jpeg"
+		"textures/temperature/90C.jpeg"
+		"textures/temperature/95C.jpeg"
+		"textures/your-choice.jpeg"
+		"textures/bloom/inverted-no-bloom.jpeg"
+		"textures/bloom/inverted-30-60.jpeg"
+		"textures/bloom/standard-no-bloom.jpeg"
+		"textures/bloom/inverted-30-30.jpeg"
+		"textures/bloom/standard-30-30.jpeg"
+		"textures/bloom/standard-30-60.jpeg"
+		"textures/grind/fine-60.jpeg"
+		"textures/grind/coarse-4.jpeg"
+		"textures/grind/very-fine-30.jpeg"
+		"textures/grind/med-fine-90.jpeg"
+		"textures/grind/medium-120.jpeg"
+		"textures/your-choice.jpeg"
+		*/
+		///////////////////////////////////////////////////////////////////////////////////////////////////////
+		const stir1 = React.useMemo(
+			() => new TextureLoader().load("textures/stir/stir1.jpeg"),
+			[]
+		);
+		const stir2 = React.useMemo(
+			() => new TextureLoader().load("textures/stir/stir2.jpeg"),
+			[]
+		);
+		const stir3 = React.useMemo(
+			() => new TextureLoader().load("textures/stir/two-direction.jpeg"),
+			[]
+		);
+		const stir4 = React.useMemo(
+			() => new TextureLoader().load("textures/stir/no-stir.jpeg"),
+			[]
+		);
+		const stir5 = React.useMemo(
+			() => new TextureLoader().load("textures/stir/compass.jpeg"),
+			[]
+		);
+		const stir6 = React.useMemo(
+			() => new TextureLoader().load("textures/your-choice.jpeg"),
+			[]
+		);
+
+		const [hovered, hover, setHover] = useState(false);
+		const [active, setActive] = useState(false);
+
+		const [ref, api] = useBox(() => ({
+			// mass: 0.1,
+			// position: [0, 5, 0],
+			// rotation: [0.4, 0.2, 0.5],
+			// allowSleep: false,
+			// sleepSpeedLimit: 1,
+			// args: [0.3, 0.3, 0.3],
+			// material: {
+			// 	friction: 1,
+			// 	restitution: 1,
+			// },
+			mass: 0.1,
+			position: [0, 0.2, 0],
+			allowSleep: false,
+			sleepSpeedLimit: 1,
+			args: [0.22, 0.22, 0.22],
+			material: {
+				friction: 1,
+				restitution: 1,
+			},
+			onCollide: (e) => {
+				// roll(e.contact.impactVelocity);
+			},
+			...props,
+		}));
+
+		const prop = useSpring({
+			position: hover ? [2.1, 0.1, 2.8] : [2.1, 0, 2.8],
+		});
+
+		useEffect(() => {
+			document.body.style.cursor = hover ? "pointer" : "auto";
+		}, [hover]);
+
+		const rerollDice = () => {
+			api.velocity.set(-5, -0.5, 0);
+			api.angularVelocity.set(
+				Math.floor(Math.random() * 10),
+				Math.floor(Math.random() * 10),
+				Math.floor(Math.random() * 10)
+			);
+			api.rotation.set(0, 0.2, 0.4);
+			api.position.set(2, 1, 0);
+		};
+
+		return (
+			<group
+				onPointerOver={(e) => {
+					e.stopPropagation() && setHover(true);
+				}}
+				onPointerOut={(e) => {
+					e.stopPropagation() && setHover(false);
+				}}
+				onClick={(e) => {
+					rerollDice() && setActive(!active);
+				}}
+				position={prop.position}
+				castShadow
+				receiveShadow
+				scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
+				ref={ref}
+				dispose={null}
+				{...props}
+			>
+				<group castShadow receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
+					<group
+						castShadow
+						receiveShadow
+						rotation={[Math.PI / 2, 0, 0]}
+					>
+						<group castShadow receiveShadow position={[2.34, 0, 0]}>
+							<group
+								castShadow
+								receiveShadow
+								position={[-2.33, -0.01, 0]}
+								scale={[0.41, 0.41, 0.41]}
+							>
+								<mesh
+									receiveShadow
+									castShadow
+									// scale={[0.3, 0.3, 0.3]}
+									// ref={mesh}
+									// onClick={(e) => setActive(!active)}
+								>
+									<boxBufferGeometry
+										attach="geometry"
+										args={[0.75, 0.75, 0.75]}
+									/>
+									<meshPhysicalMaterial
+										attachArray="material"
+										map={stir1}
+										color={hovered ? "silver" : "white"}
+									/>
+									<meshPhysicalMaterial
+										map={stir2}
+										attachArray="material"
+										color={hovered ? "silver" : "white"}
+									/>
+									<meshPhysicalMaterial
+										map={stir3}
+										attachArray="material"
+										color={hovered ? "silver" : "white"}
+									/>
+									<meshPhysicalMaterial
+										map={stir4}
+										attachArray="material"
+										color={hovered ? "silver" : "white"}
+									/>
+									<meshPhysicalMaterial
+										map={stir5}
+										attachArray="material"
+										color={hovered ? "silver" : "white"}
+									/>
+									<meshPhysicalMaterial
+										map={stir6}
+										attachArray="material"
+										color={hovered ? "silver" : "white"}
+									/>
+								</mesh>
+							</group>
+						</group>
+					</group>
+				</group>
+			</group>
+		);
+	}
+
+	// const dices = useStore((state) => state.dices);
+
 	return (
-		<Canvas
-			shadowMap
-			sRGB
-			gl={{ alpha: false }}
-			camera={{ position: [2, 10, 5], fov: 60 }}
-		>
-			<color attach="background" args={["lightblue"]} />
-			<hemisphereLight intensity={0.25} />
-			<spotLight
+		<>
+			<Canvas
+				// style={{ zIndex: 1 }}
+				camera={{ position: [0, 20, 10], fov: 25 }}
+				colorManagement
+				// sRGB
+				shadowMap
+				gl={{ alpha: false }}
+			>
+				<color attach="background" args={["lightblue"]} />
+				<hemisphereLight intensity={0.2} />
+				{/* <spotLight
 				position={[10, 10, 10]}
 				angle={0.3}
 				penumbra={1}
 				intensity={2}
 				castShadow
-			/>
-			<Suspense fallback={null}></Suspense>
-			<Physics>
-				<Plane />
-				<Cube position={[.5, 5, 0]}/>
-				<Cube position={[0, 5, -1]} />
-				<Cube position={[0, 5, -2]} />
-				<Cube position={[0, 5, -1]} />
-				<Cube position={[0, 5, -2]} />
-			</Physics>
-		</Canvas>
+			/>  */}
+				<directionalLight
+					position={[-8, 20, 10]}
+					shadow-camera-right={6}
+					castShadow
+				/>
+				{/* <directionalLight
+					position={[0, 10, 8]}
+					castShadow
+					penumbra={1}
+					intensity={0.5}
+				/> */}
+				<OrbitControls />
+				<Physics>
+					<Suspense fallback={<HTML>Loading...</HTML>}>
+						<Plane />
+						{/* {dices.map((dice) => (
+							<Dice key={dice.id} dice={dice} />
+						))} */}
+						<Cube position={[2, 0.25, 4]} />
+						<Cube position={[1, 0.25, 4]} />
+						<Cube position={[0, 0.25, 4]} />
+						<Cube position={[-1, 0.25, 4]} />
+						<Cube position={[-2, 0.25, 4]} />
+					</Suspense>
+				</Physics>
+			</Canvas>
+		</>
 	);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
