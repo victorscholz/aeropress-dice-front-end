@@ -1,0 +1,148 @@
+import create from "zustand";
+import { devtools } from "zustand/middleware";
+
+const initial = {
+  one: 0,
+  two: 0,
+  three: 0,
+  four: 0,
+  five: 0,
+  six: 0,
+};
+
+const initialCurrent = {
+  one: 0,
+  two: 0,
+  three: 0,
+  four: 0,
+  five: 0,
+  six: 0,
+};
+
+// export const [useScore] = create((set, get) => ({
+//   currentRecipe: initial,
+//   savedRecipe: initialCurrent,
+
+//   setScoreCount: (scoreCount) => {
+//     set({ scoreCount: scoreCount });
+//   },
+//   setTotalScores: (totalScores) => {
+//     set({ totalScores: totalScores });
+//   },
+//   setPossibleScores: (scores) => {
+//     set({ possibleScores: scores });
+//   },
+//   setCurrentScores: (scores) => {
+//     set({ currentScores: scores });
+//   },
+//   setCurrentScore: (score, name) => {
+//     let currentScores = get().currentScores;
+//     currentScores = {
+//       ...currentScores,
+//       [name]: score,
+//     };
+//     set({ currentScores: currentScores });
+//   },
+// }));
+
+export const [useStore, api] = create(
+  devtools((set, get) => {
+    return {
+      diceOne: undefined,
+      diceTwo: undefined,
+      diceThree: undefined,
+      diceFour: undefined,
+      diceFive: undefined,
+      setDiceOne: (value) => set({ diceOne: value }),
+      setDiceTwo: (value) => set({ diceTwo: value }),
+      setDiceThree: (value) => set({ diceThree: value }),
+      setDiceFour: (value) => set({ diceFour: value }),
+      setDiceFive: (value) => set({ diceFive: value }),
+      dices: [
+        {
+          id: 1,
+          value: undefined,
+          set: false,
+          prev: undefined,
+          api: undefined,
+          name: "diceOne",
+        },
+        {
+          id: 2,
+          value: undefined,
+          set: false,
+          prev: undefined,
+          api: undefined,
+          name: "diceTwo",
+        },
+        {
+          id: 3,
+          value: undefined,
+          set: false,
+          prev: undefined,
+          api: undefined,
+          name: "diceThree",
+        },
+        {
+          id: 4,
+          value: undefined,
+          set: false,
+          prev: undefined,
+          api: undefined,
+          name: "diceFour",
+        },
+        {
+          id: 5,
+          value: undefined,
+          set: false,
+          prev: undefined,
+          api: undefined,
+          name: "diceFive",
+        },
+      ],
+      slots: [
+        { id: 1, position: [2, 0.25, 4], open: true },
+        { id: 2, position: [1, 0.25, 4], open: true },
+        { id: 3, position: [0, 0.25, 4], open: true },
+        { id: 4, position: [-1, 0.25, 4], open: true },
+        { id: 5, position: [-2, 0.25, 4], open: true },
+      ],
+      setDice: (index, bool) => {
+        const dices = get().dices;
+        const newDices = dices.map((content, i) =>
+          i === index ? { ...content, set: bool } : content
+        );
+        set({ dices: newDices });
+      },
+      setSlot: (index, bool) => {
+        const slots = get().slots;
+        const newSlots = slots.map((content, i) =>
+          i === index ? { ...content, open: bool } : content
+        );
+        set({ slots: newSlots });
+      },
+      api: {
+        roll(velocity) {},
+      },
+      reroll: false,
+      setReroll: (bool) => {
+        set({ reroll: bool });
+      },
+      setApi: (id, api) => {
+        const dices = get().dices;
+        const newDices = dices.map((content) =>
+          content.id === id ? { ...content, api: api } : content
+        );
+        set({ dices: newDices });
+      },
+      amountRolled: 0,
+      setAmountRolled: (number) => {
+        set({ amountRolled: number });
+      },
+      gamePhase: "Start",
+      setGamePhase: (phase) => {
+        set({ gamePhase: phase });
+      },
+    };
+  })
+);
