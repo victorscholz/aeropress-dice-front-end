@@ -11,39 +11,40 @@ const initial = {
 };
 
 const initialCurrent = {
-  one: 0,
-  two: 0,
-  three: 0,
-  four: 0,
-  five: 0,
-  six: 0,
+  one: null,
+  two: null,
+  three: null,
+  four: null,
+  five: null,
+  six: null,
 };
 
-// export const [useScore] = create((set, get) => ({
-//   currentRecipe: initial,
-//   savedRecipe: initialCurrent,
-
-//   setScoreCount: (scoreCount) => {
-//     set({ scoreCount: scoreCount });
-//   },
-//   setTotalScores: (totalScores) => {
-//     set({ totalScores: totalScores });
-//   },
-//   setPossibleScores: (scores) => {
-//     set({ possibleScores: scores });
-//   },
-//   setCurrentScores: (scores) => {
-//     set({ currentScores: scores });
-//   },
-//   setCurrentScore: (score, name) => {
-//     let currentScores = get().currentScores;
-//     currentScores = {
-//       ...currentScores,
-//       [name]: score,
-//     };
-//     set({ currentScores: currentScores });
-//   },
-// }));
+export const [useScore] = create((set, get) => ({
+  possibleScores: initial,
+  currentScores: initialCurrent,
+  scoreCount: 0,
+  totalScores: undefined,
+  setScoreCount: (scoreCount) => {
+    set({ scoreCount: scoreCount });
+  },
+  setTotalScores: (totalScores) => {
+    set({ totalScores: totalScores });
+  },
+  setPossibleScores: (scores) => {
+    set({ possibleScores: scores });
+  },
+  setCurrentScores: (scores) => {
+    set({ currentScores: scores });
+  },
+  setCurrentScore: (score, name) => {
+    let currentScores = get().currentScores;
+    currentScores = {
+      ...currentScores,
+      [name]: score,
+    };
+    set({ currentScores: currentScores });
+  },
+}));
 
 export const [useStore, api] = create(
   devtools((set, get) => {
@@ -124,9 +125,39 @@ export const [useStore, api] = create(
       api: {
         roll(velocity) {},
       },
+      amountRolled: 0,
+      setAmountRolled: (number) => {
+        set({ amountRolled: number });
+      },
+      startedGame: 0,
+      setStartedGame: (bool) => {
+        set({ startedGame: bool });
+      },
       reroll: false,
       setReroll: (bool) => {
         set({ reroll: bool });
+      },
+      possibleScoresCalculation: false,
+      setPossibleScoresCalculation: (bool) => {
+        set({ possibleScoresCalculation: bool });
+      },
+      resetRound: (setPossibleScores) => {
+        setPossibleScores(initial);
+        set({ amountRolled: 0 });
+
+        const dices = get().dices;
+        const slots = get().slots;
+
+        for (let i = 0; i < dices.length; i++) {
+          dices[i].set = false;
+        }
+
+        for (let i = 0; i < slots.length; i++) {
+          slots[i].open = true;
+        }
+
+        set({ dices: dices });
+        set({ slots: slots });
       },
       setApi: (id, api) => {
         const dices = get().dices;
@@ -134,10 +165,6 @@ export const [useStore, api] = create(
           content.id === id ? { ...content, api: api } : content
         );
         set({ dices: newDices });
-      },
-      amountRolled: 0,
-      setAmountRolled: (number) => {
-        set({ amountRolled: number });
       },
       gamePhase: "Start",
       setGamePhase: (phase) => {

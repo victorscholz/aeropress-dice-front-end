@@ -1,11 +1,11 @@
 import React, { Suspense, useState, useEffect } from "react";
-import { Canvas, useLoader } from "react-three-fiber";
+import { Canvas } from "react-three-fiber";
 import { Physics, usePlane } from "use-cannon";
 import { useSpring, a } from "@react-spring/three";
-import { useStore, useScore } from "../Store/Store.js";
+import { useStore /*useScore*/ } from "../Store/Store.js";
 import { OrbitControls, Text, HTML } from "drei";
 import Recipe from "./Recipe";
-import Dice from "./Dice"
+import Dice from "./Dice";
 
 function Plane(props) {
   const [ref] = usePlane(() => ({
@@ -31,22 +31,22 @@ function Button() {
   const setAmountRolled = useStore((state) => state.setAmountRolled);
   const amountRolled = useStore((state) => state.amountRolled);
   const dices = useStore((state) => state.dices);
-  // const setStartedGame = useStore((state) => state.setStartedGame);
+  const setStartedGame = useStore((state) => state.setStartedGame);
   const gamePhase = useStore((state) => state.gamePhase);
   const setGamePhase = useStore((state) => state.setGamePhase);
   const [hover, set] = useState(false);
 
-  const initial = {
-    one: null,
-    two: null,
-    three: null,
-    four: null,
-    five: null,
-    six: null,
-  };
+  // const initial = {
+  //   one: null,
+  //   two: null,
+  //   three: null,
+  //   four: null,
+  //   five: null,
+  //   six: null,
+  // };
 
-  const props = useSpring({
-    position: hover ? [2.1, 0.1, 2.8] : [2.1, 0, 2.8],
+  let props = useSpring({
+    position: hover ? [0.89, 0.1, 2.9] : [0.89, 0, 2.9],
   });
 
   useEffect(() => {
@@ -80,7 +80,7 @@ function Button() {
     <a.mesh
       onPointerOver={(e) => {
         e.stopPropagation();
-        amountRolled <= 20 && set(true);
+        amountRolled <= 25 && set(true);
       }}
       onPointerOut={(e) => {
         e.stopPropagation();
@@ -88,9 +88,9 @@ function Button() {
       }}
       onClick={() => {
         setGamePhase("Roll Dice");
-        if (amountRolled <= 20) {
+        if (amountRolled <= 25) {
           reroll(dices, setReroll, amountRolled, setAmountRolled);
-          // setStartedGame(true);
+          setStartedGame(true);
         }
       }}
       receiveShadow
@@ -101,26 +101,76 @@ function Button() {
       {gamePhase === "Start" && (
         <Text
           textAlign="center"
-          position={[0, 0.04, 0.05]}
+          position={[0, 0.03, 0.03]}
+          letterSpacing={-0.02}
           // font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
-          fontSize={0.5}
+          fontSize={0.3}
         >
-          Start
+          Make Coffee!
         </Text>
       )}
       {gamePhase === "Roll Dice" && (
         <Text
           textAlign="center"
-          position={[0, 0.04, 0.05]}
+          position={[0, 0.03, 0.03]}
           // font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
           letterSpacing={-0.02}
           color={amountRolled <= 20 ? "white" : "gray"}
-          fontSize={0.5}
+          fontSize={0.3}
         >
-          Roll Dice
+          Re-Roll Dice
         </Text>
       )}
-      <planeBufferGeometry attach="geometry" args={[4, 0.75]} />
+      <planeBufferGeometry attach="geometry" args={[2, 0.6]} />
+      <meshPhysicalMaterial attach="material" color="black" />
+    </a.mesh>
+  );
+}
+
+function Save() {
+  // save state of current dice
+  // const diceOne = useStore((state) => state.diceOne);
+  // const diceTwo = useStore((state) => state.diceTwo);
+  // const diceThree = useStore((state) => state.diceThree);
+  // const diceFour = useStore((state) => state.diceFour);
+  // const diceFive = useStore((state) => state.diceFive);
+  const [hover, set] = useState(false);
+
+  let props = useSpring({
+    position: hover ? [4, 0.1, 2.9] : [4, 0, 2.9],
+  });
+
+  useEffect(() => {
+    document.body.style.cursor = hover ? "pointer" : "auto";
+  }, [hover]);
+
+  return (
+    <a.mesh
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        set(true);
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        set(false);
+      }}
+      onClick={() => {
+        // save recipe
+      }}
+      receiveShadow
+      castShadow
+      position={props.position}
+      rotation={[-0.5 * Math.PI, 0, 0]}
+    >
+      <Text
+        textAlign="center"
+        position={[0, 0.03, 0.03]}
+        letterSpacing={-0.02}
+        fontSize={0.3}
+      >
+        Save Recipe
+      </Text>
+      <planeBufferGeometry attach="geometry" args={[2, 0.6]} />
       <meshPhysicalMaterial attach="material" color="black" />
     </a.mesh>
   );
@@ -142,7 +192,7 @@ function Paper(props) {
 
 export default () => {
   const dices = useStore((state) => state.dices);
-  const gamePhase = useStore((state) => state.gamePhase);
+  // const gamePhase = useStore((state) => state.gamePhase);
   return (
     <>
       <Canvas
@@ -151,7 +201,7 @@ export default () => {
         colorManagement
         shadowMap
       >
-        <color attach="background" args={["lightblue"]} /*#add8e6*//>
+        <color attach="background" args={["lightblue"]} /*#add8e6*/ />
         <hemisphereLight intensity={0.1} />
         <directionalLight
           position={[-8, 20, 10]}
@@ -167,12 +217,13 @@ export default () => {
               letterSpacing={-0.02}
               color="black"
               rotation={[-0.5 * Math.PI, 0, 0]}
-              fontSize={.8}
+              fontSize={0.8}
             >
               Aeropress Dice
             </Text>
             <Recipe />
             <Button />
+            <Save />
             <Plane />
             <Paper />
             {dices.map((dice) => (
