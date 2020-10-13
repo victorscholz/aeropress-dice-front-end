@@ -46,7 +46,7 @@ function Button() {
   // };
 
   let props = useSpring({
-    position: hover ? [0.89, 0.1, 2.9] : [0.89, 0, 2.9],
+    position: hover ? [1.1, 0.1, 2.9] : [1.1, 0, 2.9],
   });
 
   useEffect(() => {
@@ -134,10 +134,12 @@ function Save() {
   // const diceThree = useStore((state) => state.diceThree);
   // const diceFour = useStore((state) => state.diceFour);
   // const diceFive = useStore((state) => state.diceFive);
+  const saveRecipe = useStore((state) => state.saveRecipe)
+  const setSaveRecipe = useStore((state) => state.setSaveRecipe);
   const [hover, set] = useState(false);
 
   let props = useSpring({
-    position: hover ? [4, 0.1, 2.9] : [4, 0, 2.9],
+    position: hover ? [3.9, 0.1, 2.9] : [3.9, 0, 2.9],
   });
 
   useEffect(() => {
@@ -212,7 +214,7 @@ export default () => {
         <Physics defaultContactMaterial={{ contactEquationStiffness: 1e2 }}>
           <Suspense fallback={<HTML>Loading...</HTML>}>
             <Text
-              position={[2.5, 0.02, -3.6]}
+              position={[2.6, 0.02, -3.6]}
               // font={}
               letterSpacing={-0.02}
               color="black"

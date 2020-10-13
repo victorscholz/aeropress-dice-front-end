@@ -170,6 +170,10 @@ export const [useStore, api] = create(
       setGamePhase: (phase) => {
         set({ gamePhase: phase });
       },
+      saveRecipe: false,
+      setSaveRecipe: (bool) => {
+        set({ saveRecipe: bool })
+      }
     };
   })
 );
