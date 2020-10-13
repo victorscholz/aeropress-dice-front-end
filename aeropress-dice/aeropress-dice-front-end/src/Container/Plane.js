@@ -45,7 +45,7 @@ function Button() {
   //   six: null,
   // };
 
-  let props = useSpring({
+  const props = useSpring({
     position: hover ? [1.1, 0.1, 2.9] : [1.1, 0, 2.9],
   });
 
@@ -128,17 +128,24 @@ function Button() {
 }
 
 function Save() {
-  // save state of current dice
-  // const diceOne = useStore((state) => state.diceOne);
-  // const diceTwo = useStore((state) => state.diceTwo);
-  // const diceThree = useStore((state) => state.diceThree);
-  // const diceFour = useStore((state) => state.diceFour);
-  // const diceFive = useStore((state) => state.diceFive);
-  const saveRecipe = useStore((state) => state.saveRecipe)
-  const setSaveRecipe = useStore((state) => state.setSaveRecipe);
+  const dices = useStore((state) => state.dices);
+  const diceOne = useStore((state) => state.diceOne);
+  const diceTwo = useStore((state) => state.diceTwo);
+  const diceThree = useStore((state) => state.diceThree);
+  const diceFour = useStore((state) => state.diceFour);
+  const diceFive = useStore((state) => state.diceFive);
+  const amountSaved = useStore((state) => state.amountSaved);
+  const { savePhase } = useStore();
+  const aDices = [diceOne, diceTwo, diceThree, diceFour, diceFive];
+  const bDices = aDices.join().replaceAll(",", "\n");
+  const setSavePhase = useStore((state) => state.setSavePhase);
+  // const setSaveRecipes = useStore((state) => state.setSaveRecipes)
+  // const setSaveRecipe = useStore((state) => state.setSaveRecipe);
+  // const saveRecipes = useStore((state) => state.saveRecipes)
+  // const currentRecipe = useStore((state) => state.currentRecipe);
   const [hover, set] = useState(false);
 
-  let props = useSpring({
+  const props = useSpring({
     position: hover ? [3.9, 0.1, 2.9] : [3.9, 0, 2.9],
   });
 
@@ -157,6 +164,18 @@ function Save() {
         set(false);
       }}
       onClick={() => {
+        // setSavePhase("Saved");
+        if (amountSaved <= 7) {
+          setSavePhase(bDices);
+          // console.log(savePhase);
+          // console.log(aDices)
+        }
+        // setGamePhase("Start");
+
+        // if (saveRecipes) {
+        // if (dices) {setSaveRecipe(diceOne)};
+        // else setSaveRecipes(false);
+        // }
         // save recipe
       }}
       receiveShadow
@@ -164,6 +183,7 @@ function Save() {
       position={props.position}
       rotation={[-0.5 * Math.PI, 0, 0]}
     >
+      {/* {savePhase === "Save" && ( */}
       <Text
         textAlign="center"
         position={[0, 0.03, 0.03]}
@@ -172,6 +192,17 @@ function Save() {
       >
         Save Recipe
       </Text>
+      {/* )} */}
+      {/* {savePhase === "Saved" && (
+        <Text
+          textAlign="center"
+          position={[0, 0.03, 0.03]}
+          letterSpacing={-0.02}
+          fontSize={0.3}
+        >
+          Save Recipe
+        </Text>
+      )} */}
       <planeBufferGeometry attach="geometry" args={[2, 0.6]} />
       <meshPhysicalMaterial attach="material" color="black" />
     </a.mesh>

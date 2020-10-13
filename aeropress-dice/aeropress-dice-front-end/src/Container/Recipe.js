@@ -7,101 +7,103 @@ import { a } from "@react-spring/three";
 import { useScore, useStore } from "../Store/Store.js";
 
 const Recipe = () => {
-  const { possibleScores, currentScores, totalScores } = useScore();
+  const { possibleScores, currentScores } = useScore();
+  const { savePhase } = useStore()
   const diceOne = useStore((state) => state.diceOne);
   const diceTwo = useStore((state) => state.diceTwo);
   const diceThree = useStore((state) => state.diceThree);
   const diceFour = useStore((state) => state.diceFour);
   const diceFive = useStore((state) => state.diceFive);
+  // console.log(savePhase);
   // console.log(possibleScores, currentScores, totalScores)
   return (
-    console.log(diceOne, diceTwo, diceThree, diceFour, diceFive),
-    (
-      <group position={[0, -0.17, -0.21]}>
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={[-4.1, 0.22, -3]}
-          fontSize={0.31}
-          color="black"
-        >
-          Recipe Instructions:
-        </Text>
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={[-5.3, 0.22, -2.6]}
-          fontSize={0.2}
-          color="black"
-        >
-          1.
-        </Text>
-        <ScoreCell
-          positionText={[-3, 0.22, -2.6]}
-          positionPlane={[-2.89, 0.2, -2.5]}
-          name="one"
-          currentScore={currentScores.one}
-          possibleScore={diceOne}
-        />
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={[-5.3, 0.22, -2.3]}
-          fontSize={0.2}
-          color="black"
-        >
-          2.
-        </Text>
-        <ScoreCell
-          positionText={[-3, 0.22, -2.3]}
-          positionPlane={[-2.89, 0.2, -2.2]}
-          name="two"
-          currentScore={currentScores.two}
-          possibleScore={diceTwo}
-        />
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={[-5.3, 0.22, -2.0]}
-          fontSize={0.2}
-          color="black"
-        >
-          3.
-        </Text>
-        <ScoreCell
-          positionText={[-3, 0.22, -2.0]}
-          positionPlane={[-2.89, 0.2, -1.9]}
-          name="three"
-          currentScore={currentScores.three}
-          possibleScore={diceThree}
-        />
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={[-5.3, 0.22, -1.7]}
-          fontSize={0.2}
-          color="black"
-        >
-          4.
-        </Text>
-        <ScoreCell
-          positionText={[-3, 0.22, -1.7]}
-          positionPlane={[-2.89, 0.2, -1.6]}
-          name="four"
-          currentScore={currentScores.four}
-          possibleScore={diceFour}
-        />
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={[-5.3, 0.22, -1.4]}
-          fontSize={0.2}
-          color="black"
-        >
-          5.
-        </Text>
-        <ScoreCell
-          positionText={[-3, 0.22, -1.4]}
-          positionPlane={[-2.89, 0.2, -1.3]}
-          name="five"
-          currentScore={currentScores.five}
-          possibleScore={diceFive}
-        />
-        {/* <Text
+    // console.log(savePhase),
+    // console.log(diceOne, diceTwo, diceThree, diceFour, diceFive),
+    <group position={[0, -0.17, -0.21]}>
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={[-4.1, 0.22, -3]}
+        fontSize={0.31}
+        color="black"
+      >
+        Recipe Instructions:
+      </Text>
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={[-5.3, 0.22, -2.6]}
+        fontSize={0.2}
+        color="black"
+      >
+        1.
+      </Text>
+      <ScoreCell
+        positionText={[-3, 0.22, -2.6]}
+        positionPlane={[-2.89, 0.2, -2.5]}
+        name="one"
+        // currentScore={currentScores.one}
+        possibleScore={diceOne}
+      />
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={[-5.3, 0.22, -2.3]}
+        fontSize={0.2}
+        color="black"
+      >
+        2.
+      </Text>
+      <ScoreCell
+        positionText={[-3, 0.22, -2.3]}
+        positionPlane={[-2.89, 0.2, -2.2]}
+        name="two"
+        // currentScore={currentScores.two}
+        possibleScore={diceTwo}
+      />
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={[-5.3, 0.22, -2.0]}
+        fontSize={0.2}
+        color="black"
+      >
+        3.
+      </Text>
+      <ScoreCell
+        positionText={[-3, 0.22, -2.0]}
+        positionPlane={[-2.89, 0.2, -1.9]}
+        name="three"
+        // currentScore={currentScores.three}
+        possibleScore={diceThree}
+      />
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={[-5.3, 0.22, -1.7]}
+        fontSize={0.2}
+        color="black"
+      >
+        4.
+      </Text>
+      <ScoreCell
+        positionText={[-3, 0.22, -1.7]}
+        positionPlane={[-2.89, 0.2, -1.6]}
+        name="four"
+        // currentScore={currentScores.four}
+        possibleScore={diceFour}
+      />
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={[-5.3, 0.22, -1.4]}
+        fontSize={0.2}
+        color="black"
+      >
+        5.
+      </Text>
+      <ScoreCell
+        positionText={[-3, 0.22, -1.4]}
+        positionPlane={[-2.89, 0.2, -1.3]}
+        name="five"
+        // currentScore={currentScores.five}
+        possibleScore={diceFive}
+      />
+      {/* <Text
         rotation={[-0.5 * Math.PI, 0, 0]}
         position={[-5.3, 0.22, -1.1]}
         fontSize={0.2}
@@ -133,122 +135,129 @@ const Recipe = () => {
       >
         {totalScores.totalUpper}
       </Text> */}
-        ///////////////////////////////////////// Saved Recipe Section
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={[-4.2, 0.22, 0]}
-          fontSize={0.3}
-          color="black"
-        >
-          My Saved Recipes:
-        </Text>
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={[-5.3, 0.22, 0.4]}
-          fontSize={0.2}
-          color="black"
-        >
-          1.
-        </Text>
-        <ScoreCell
-          positionText={[-3, 0.22, 0.4]}
-          positionPlane={[-2.89, 0.2, 0.5]}
-          name="first"
-          currentScore={currentScores}
-          possibleScore={possibleScores}
-        />
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={[-5.3, 0.22, 0.7]}
-          fontSize={0.2}
-          color="black"
-        >
-          2.
-        </Text>
-        <ScoreCell
-          positionText={[-3, 0.22, 0.7]}
-          positionPlane={[-2.89, 0.2, 0.8]}
-          name="second"
-          currentScore={currentScores}
-          possibleScore={possibleScores}
-        />
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={[-5.3, 0.22, 1]}
-          fontSize={0.2}
-          color="black"
-        >
-          3.
-        </Text>
-        <ScoreCell
-          positionText={[-3, 0.22, 1]}
-          positionPlane={[-2.89, 0.2, 1.1]}
-          name="third"
-          currentScore={currentScores}
-          possibleScore={possibleScores}
-        />
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={[-5.3, 0.22, 1.3]}
-          fontSize={0.2}
-          color="black"
-        >
-          4.
-        </Text>
-        <ScoreCell
-          positionText={[-3, 0.22, 1.3]}
-          positionPlane={[-2.89, 0.2, 1.4]}
-          name="fourth"
-          currentScore={currentScores}
-          possibleScore={possibleScores}
-        />
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={[-5.3, 0.22, 1.6]}
-          fontSize={0.2}
-          color="black"
-        >
-          5.
-        </Text>
-        <ScoreCell
-          positionText={[-3, 0.22, 1.6]}
-          positionPlane={[-2.89, 0.2, 1.7]}
-          name="fifth"
-          currentScore={currentScores}
-          possibleScore={possibleScores}
-        />
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={[-5.3, 0.22, 1.9]}
-          fontSize={0.2}
-          color="black"
-        >
-          6.
-        </Text>
-        <ScoreCell
-          positionText={[-3, 0.22, 1.9]}
-          positionPlane={[-2.89, 0.2, 2.0]}
-          name="sixth"
-          currentScore={currentScores}
-          possibleScore={possibleScores}
-        />
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={[-5.3, 0.22, 2.2]}
-          fontSize={0.2}
-          color="black"
-        >
-          7.
-        </Text>
-        <ScoreCell
-          positionText={[-3, 0.22, 2.2]}
-          positionPlane={[-2.89, 0.2, 2.3]}
-          name="seventh"
-          currentScore={currentScores}
-          possibleScore={possibleScores}
-        />
-      </group>
-    )
+      ///////////////////////////////////////// Saved Recipe Section
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={[-4.2, 0.22, -.5]}
+        fontSize={0.3}
+        color="black"
+      >
+        My Saved Recipes:
+      </Text>
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={[-5.3, 0.22, 0.4]}
+        fontSize={0.2}
+        color="black"
+      >
+        {/* 1. */}
+      </Text>
+      <ScoreCell
+        positionText={[-3, 0.22, 0.4]}
+        positionPlane={[-2.89, 0.2, 0.5]}
+        name="first"
+        // currentScore={savePhase}
+        possibleScore={savePhase}
+        // savePhase={savePhase}
+        // currentRecipe={currentRecipe}
+      />
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={[-5.3, 0.22, 0.7]}
+        fontSize={0.2}
+        color="black"
+      >
+        {/* 2. */}
+      </Text>
+      <ScoreCell
+        positionText={[-3, 0.22, 0.7]}
+        positionPlane={[-2.89, 0.2, 0.8]}
+        name="second"
+        // currentScore={currentScores.two}
+        // possibleScore={possibleScores.two}
+        // possibleScore={savePhase}
+      />
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={[-5.3, 0.22, 1]}
+        fontSize={0.2}
+        color="black"
+      >
+        {/* 3. */}
+      </Text>
+      <ScoreCell
+        positionText={[-3, 0.22, 1]}
+        positionPlane={[-2.89, 0.2, 1.1]}
+        name="third"
+        // currentScore={currentScores.three}
+        // possibleScore={possibleScores.three}
+        // possibleScore={savePhase}
+      />
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={[-5.3, 0.22, 1.3]}
+        fontSize={0.2}
+        color="black"
+      >
+        {/* 4. */}
+      </Text>
+      <ScoreCell
+        positionText={[-3, 0.22, 1.3]}
+        positionPlane={[-2.89, 0.2, 1.4]}
+        name="fourth"
+        // currentScore={currentScores.four}
+        // possibleScore={possibleScores.four}
+        // possibleScore={savePhase}
+      />
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={[-5.3, 0.22, 1.6]}
+        fontSize={0.2}
+        color="black"
+      >
+        {/* 5. */}
+      </Text>
+      <ScoreCell
+        positionText={[-3, 0.22, 1.6]}
+        positionPlane={[-2.89, 0.2, 1.7]}
+        name="fifth"
+        // currentScore={currentScores.five}
+        // possibleScore={possibleScores.five}
+        // possibleScore={savePhase}
+      />
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={[-5.3, 0.22, 1.9]}
+        fontSize={0.2}
+        color="black"
+      >
+        {/* 6. */}
+      </Text>
+      <ScoreCell
+        positionText={[-3, 0.22, 1.9]}
+        positionPlane={[-2.89, 0.2, 2.0]}
+        name="sixth"
+        // currentScore={currentScores.six}
+        // possibleScore={possibleScores.six}
+        // possibleScore={savePhase}
+      />
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={[-5.3, 0.22, 2.2]}
+        fontSize={0.2}
+        color="black"
+      >
+        {/* 7. */}
+      </Text>
+      <ScoreCell
+        positionText={[-3, 0.22, 2.2]}
+        positionPlane={[-2.89, 0.2, 2.3]}
+        name="seventh"
+        // currentScore={currentScores}
+        // possibleScore={possibleScores}
+        // possibleScore={savePhase}
+      />
+    </group>
   );
 };
 
@@ -258,6 +267,7 @@ function ScoreCell({
   currentScore,
   positionText,
   positionPlane,
+  savePhase
 }) {
   const [hover, set] = useState(false);
   let {
@@ -265,6 +275,7 @@ function ScoreCell({
     setPossibleScores,
     setScoreCount,
     scoreCount,
+    setSavePhase
   } = useScore();
   const {
     resetRound,
@@ -300,7 +311,23 @@ function ScoreCell({
       >
         <a.meshPhysicalMaterial attach="material" color={props.color} />
       </Plane>
-      {currentScore === null ? (
+      <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={positionText}
+        fontSize={0.2}
+        color="black"
+      >
+        {possibleScore && possibleScore.toString()}{" "}
+      </Text>
+      {/* <Text
+        rotation={[-0.5 * Math.PI, 0, 0]}
+        position={positionText}
+        fontSize={0.2}
+        color="black"
+      >
+        {savePhase && savePhase.toString()}{" "}
+      </Text> */}
+      {/* {currentScore === null ? (
         <Text
           rotation={[-0.5 * Math.PI, 0, 0]}
           position={positionText}
@@ -318,7 +345,7 @@ function ScoreCell({
         >
           {currentScore.toString()}{" "}
         </Text>
-      )}
+      )} */}
     </>
   );
 }

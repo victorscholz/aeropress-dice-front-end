@@ -199,7 +199,7 @@ export default function Dice({ dice }) {
       return "Stir once in one direction.";
 
     if (rotationX === -1.57)
-      return "Stir in a North, South, East, West pattern";
+      return "Stir in a North/South/East/West pattern";
 
     if (rotationX === 1.57) return "Your choice of stir technique.";
 

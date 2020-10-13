@@ -24,6 +24,7 @@ export const [useScore] = create((set, get) => ({
   currentScores: initialCurrent,
   scoreCount: 0,
   totalScores: undefined,
+  // currentRecipe: initial,
   setScoreCount: (scoreCount) => {
     set({ scoreCount: scoreCount });
   },
@@ -44,6 +45,18 @@ export const [useScore] = create((set, get) => ({
     };
     set({ currentScores: currentScores });
   },
+  // saveRecipes: false,
+  // setSaveRecipes: (bool) => {
+  //   set({ saveRecipe: bool })
+  // },
+  // setSaveRecipe: (side, name) => {
+  //   let currentRecipe = get().currentRecipe;
+  //   currentRecipe = {
+  //     ...currentRecipe,
+  //     [name]: side,
+  //   };
+  //   set({ currentRecipe: currentRecipe });
+  // },
 }));
 
 export const [useStore, api] = create(
@@ -170,10 +183,22 @@ export const [useStore, api] = create(
       setGamePhase: (phase) => {
         set({ gamePhase: phase });
       },
-      saveRecipe: false,
-      setSaveRecipe: (bool) => {
-        set({ saveRecipe: bool })
-      }
+      savePhase: " ",
+      setSavePhase: (phase) => {
+        set({ savePhase: phase })
+      },
+      amountSaved: 0,
+      setAmountSaved: (number) => {
+        set({ amountSaved: number });
+      },
+      setSaveRecipe: (dice, name) => {
+        let currentRecipe = get().currentRecipe;
+        currentRecipe = {
+          ...currentRecipe,
+          [name]: dice,
+        };
+        set({ currentRecipe: name});
+      },
     };
   })
 );

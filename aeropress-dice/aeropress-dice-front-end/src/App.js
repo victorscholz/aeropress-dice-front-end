@@ -29,7 +29,7 @@ function App() {
     if (possibleScoresCalculation)
       setPossibleScores(calculatePossibleScores(goodDices));
     setTotalScores(calculateTotal(currentScores));
-    console.log(calculatePossibleScores(goodDices));
+    // console.log(calculatePossibleScores(goodDices));
     if (gameEnd(scoreCount)) setGamePhase("Restart");
   });
 
