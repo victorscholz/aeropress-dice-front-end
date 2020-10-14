@@ -139,12 +139,13 @@ function Save() {
   const aDices = [diceOne, diceTwo, diceThree, diceFour, diceFive];
   const bDices = aDices.join().replaceAll(",", "\n");
   const setSavePhase = useStore((state) => state.setSavePhase);
+  const [recipe, changeRecipe] = useState();
   // const setSaveRecipes = useStore((state) => state.setSaveRecipes)
   // const setSaveRecipe = useStore((state) => state.setSaveRecipe);
   // const saveRecipes = useStore((state) => state.saveRecipes)
   // const currentRecipe = useStore((state) => state.currentRecipe);
   const [hover, set] = useState(false);
-
+  const [createdRecipes, setCreatedRecipes] = useState([]);
   const props = useSpring({
     position: hover ? [3.9, 0.1, 2.9] : [3.9, 0, 2.9],
   });
@@ -152,6 +153,22 @@ function Save() {
   useEffect(() => {
     document.body.style.cursor = hover ? "pointer" : "auto";
   }, [hover]);
+
+  useEffect(() => {
+    const option = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+    };
+    fetch("http://localhost:3000/recipes/", option)
+      .then((response) => response.json())
+      .then((data) => {
+        setCreatedRecipes(data, ...createdRecipes);
+        console.log(data);
+      });
+  },[diceOne]);
 
   return (
     <a.mesh
@@ -164,12 +181,27 @@ function Save() {
         set(false);
       }}
       onClick={() => {
+        const option = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+          body: JSON.stringify({ dice: bDices }),
+        };
+        fetch("http://localhost:3000/recipes/", option)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            // debugger;
+          });
         // setSavePhase("Saved");
         if (amountSaved <= 7) {
           setSavePhase(bDices);
           // console.log(savePhase);
           // console.log(aDices)
         }
+
         // setGamePhase("Start");
 
         // if (saveRecipes) {
@@ -254,6 +286,7 @@ export default () => {
             >
               Aeropress Dice
             </Text>
+            {/* onClick{function}  to function(){ setState} to <ChildComponent props={this.state}/> */}
             <Recipe />
             <Button />
             <Save />

@@ -7,6 +7,7 @@ import { a } from "@react-spring/three";
 import { useScore, useStore } from "../Store/Store.js";
 
 const Recipe = () => {
+  
   const { possibleScores, currentScores } = useScore();
   const { savePhase } = useStore()
   const diceOne = useStore((state) => state.diceOne);
@@ -14,6 +15,7 @@ const Recipe = () => {
   const diceThree = useStore((state) => state.diceThree);
   const diceFour = useStore((state) => state.diceFour);
   const diceFive = useStore((state) => state.diceFive);
+  // const createdRecipe = useStore((state) => state.createdRecipe)
   // console.log(savePhase);
   // console.log(possibleScores, currentScores, totalScores)
   return (
@@ -157,6 +159,7 @@ const Recipe = () => {
         positionPlane={[-2.89, 0.2, 0.5]}
         name="first"
         // currentScore={savePhase}
+        // if state of store value ? true, render else null
         possibleScore={savePhase}
         // savePhase={savePhase}
         // currentRecipe={currentRecipe}
