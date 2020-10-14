@@ -7,17 +7,41 @@ import { a } from "@react-spring/three";
 import { useScore, useStore } from "../Store/Store.js";
 
 const Recipe = () => {
-  
-  const { possibleScores, currentScores } = useScore();
-  const { savePhase } = useStore()
+  // const { possibleScores, currentScores } = useScore();
+  const { savePhase } = useStore();
   const diceOne = useStore((state) => state.diceOne);
   const diceTwo = useStore((state) => state.diceTwo);
   const diceThree = useStore((state) => state.diceThree);
   const diceFour = useStore((state) => state.diceFour);
   const diceFive = useStore((state) => state.diceFive);
+  const newRecipe = useStore((state) => state.newRecipe);
   // const createdRecipe = useStore((state) => state.createdRecipe)
   // console.log(savePhase);
   // console.log(possibleScores, currentScores, totalScores)
+  const [createdRecipes, setCreatedRecipes] = useState([]);
+  useEffect(() => {
+    const option = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+    };
+    fetch("http://localhost:3000/recipes/", option)
+      .then((response) => response.json())
+      .then((newRecipe) => {
+        setCreatedRecipes(newRecipe);
+        console.log(newRecipe[newRecipe.length - 1])
+        console.log(newRecipe)
+      });
+    }, [diceOne]);
+    // const list = createdRecipes[0]
+    // console.log(list)
+    // const list = createdRecipes.map((recipe) => (<li key={recipe.id} dice={recipe}></li>))
+    // console.log(list)
+    // {dices.map((dice) => (
+    //   <Dice key={dice.id} dice={dice} />
+    // ))}
   return (
     // console.log(savePhase),
     // console.log(diceOne, diceTwo, diceThree, diceFour, diceFive),
@@ -136,15 +160,15 @@ const Recipe = () => {
         color="black"
       >
         {totalScores.totalUpper}
-      </Text> */}
+      </Text>  */}
       ///////////////////////////////////////// Saved Recipe Section
       <Text
         rotation={[-0.5 * Math.PI, 0, 0]}
-        position={[-4.2, 0.22, -.5]}
+        position={[-4.5, 0.22, -0.5]}
         fontSize={0.3}
         color="black"
       >
-        My Saved Recipes:
+        Saved Recipe:
       </Text>
       <Text
         rotation={[-0.5 * Math.PI, 0, 0]}
@@ -267,10 +291,10 @@ const Recipe = () => {
 function ScoreCell({
   name,
   possibleScore,
-  currentScore,
+  // currentScore,
   positionText,
   positionPlane,
-  savePhase
+  // savePhase
 }) {
   const [hover, set] = useState(false);
   let {
@@ -278,7 +302,7 @@ function ScoreCell({
     setPossibleScores,
     setScoreCount,
     scoreCount,
-    setSavePhase
+    // setSavePhase
   } = useScore();
   const {
     resetRound,

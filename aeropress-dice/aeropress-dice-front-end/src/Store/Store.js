@@ -185,20 +185,49 @@ export const [useStore, api] = create(
       },
       savePhase: " ",
       setSavePhase: (phase) => {
-        set({ savePhase: phase })
+        set({ savePhase: phase });
       },
       amountSaved: 0,
       setAmountSaved: (number) => {
         set({ amountSaved: number });
       },
-      setSaveRecipe: (dice, name) => {
-        let currentRecipe = get().currentRecipe;
-        currentRecipe = {
-          ...currentRecipe,
-          [name]: dice,
-        };
-        set({ currentRecipe: name});
-      },
+      // setSaveRecipe: (dice, name) => {
+      //   let currentRecipe = get().currentRecipe;
+      //   currentRecipe = {
+      //     ...currentRecipe,
+      //     [name]: dice,
+      //   };
+      //   set({ currentRecipe: name});
+      // },
+
+      // useEffect(() => {
+      //   const option = {
+      //     method: "GET",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       accept: "application/json",
+      //     },
+      //   };
+      //   fetch("http://localhost:3000/recipes/", option)
+      //     .then((response) => response.json())
+      //     .then((newRecipe) => {
+      //       setCreatedRecipes(newRecipe);
+      //       console.log(newRecipe[newRecipe.length - 1])
+      //       console.log(newRecipe)
+      //     });
+      //   }, [diceOne]);
+      // newRecipe: [],
+      // fetch: async (recipe) => {
+      //   const recipeUrl = "http://localhost:3000/recipes/";
+      //   const response = await fetch(recipeUrl);
+      //   set({ newRecipe: await response.json() });
+      // },
+      // savedRecipe: [],
+      // fetch: async (recipe) => {
+      //   const recipeUrl = "http://localhost:3000/recipes/";
+      //   const response = await fetch(recipeUrl);
+      //   set({ savedRecipe: await response.json() });
+      // },
     };
   })
 );

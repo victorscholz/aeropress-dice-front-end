@@ -128,18 +128,18 @@ function Button() {
 }
 
 function Save() {
-  const dices = useStore((state) => state.dices);
+  // const dices = useStore((state) => state.dices);
   const diceOne = useStore((state) => state.diceOne);
   const diceTwo = useStore((state) => state.diceTwo);
   const diceThree = useStore((state) => state.diceThree);
   const diceFour = useStore((state) => state.diceFour);
   const diceFive = useStore((state) => state.diceFive);
   const amountSaved = useStore((state) => state.amountSaved);
-  const { savePhase } = useStore();
+  // const { savePhase } = useStore();
   const aDices = [diceOne, diceTwo, diceThree, diceFour, diceFive];
   const bDices = aDices.join().replaceAll(",", "\n");
   const setSavePhase = useStore((state) => state.setSavePhase);
-  const [recipe, changeRecipe] = useState();
+  // const [recipe, changeRecipe] = useState();
   // const setSaveRecipes = useStore((state) => state.setSaveRecipes)
   // const setSaveRecipe = useStore((state) => state.setSaveRecipe);
   // const saveRecipes = useStore((state) => state.saveRecipes)
@@ -154,21 +154,21 @@ function Save() {
     document.body.style.cursor = hover ? "pointer" : "auto";
   }, [hover]);
 
-  useEffect(() => {
-    const option = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-      },
-    };
-    fetch("http://localhost:3000/recipes/", option)
-      .then((response) => response.json())
-      .then((data) => {
-        setCreatedRecipes(data, ...createdRecipes);
-        console.log(data);
-      });
-  },[diceOne]);
+  // useEffect(() => {
+  //   const option = {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       accept: "application/json",
+  //     },
+  //   };
+  //   fetch("http://localhost:3000/recipes/", option)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setCreatedRecipes(data, ...createdRecipes);
+  //       console.log(data);
+  //     });
+  // },[diceOne]);
 
   return (
     <a.mesh
