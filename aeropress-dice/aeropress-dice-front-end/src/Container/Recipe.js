@@ -52,7 +52,7 @@ const Recipe = () => {
     <group position={[0, -0.17, -0.21]}>
       <Text
         rotation={[-0.5 * Math.PI, 0, 0]}
-        position={[-4.1, 0.22, -3]}
+        position={[-3.9, 0.22, -3]}
         font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
         fontSize={0.31}
         color="black"
@@ -169,7 +169,7 @@ const Recipe = () => {
       ///////////////////////////////////////// Saved Recipe Section
       <Text
         rotation={[-0.5 * Math.PI, 0, 0]}
-        position={[-4.55, 0.22, -0.5]}
+        position={[-4.4, 0.22, -0.5]}
         font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
         fontSize={0.3}
         color="black"

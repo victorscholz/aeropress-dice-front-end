@@ -9,40 +9,31 @@ import shallow from "zustand/shallow";
 import { TextureLoader } from "three";
 
 export default function Dice({ dice }) {
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
-  /* file paths to custom textures
-    "textures/stir/stir2.jpeg"
-    "textures/stir/stir1.jpeg"
-    "textures/stir/two-direction.jpeg"
-    "textures/stir/no-stir.jpeg"
-    "textures/stir/compass.jpeg"
-    "textures/your-choice.jpeg"
-    "textures/ratio/12-200.jpeg"
-    "textures/ratio/15-200.jpeg"
-    "textures/ratio/15-250.jpeg"
-    "textures/ratio/24-200.jpeg"
-    "textures/ratio/30-200.jpeg"
-    "textures/your-choice.jpeg"
-    "textures/temperature/75C.jpeg"
-    "textures/temperature/80C.jpeg"
-    "textures/temperature/85C.jpeg"
-    "textures/temperature/90C.jpeg"
-    "textures/temperature/95C.jpeg"
-    "textures/your-choice.jpeg"
-    "textures/bloom/inverted-no-bloom.jpeg"
-    "textures/bloom/inverted-30-60.jpeg"
-    "textures/bloom/standard-no-bloom.jpeg"
-    "textures/bloom/inverted-30-30.jpeg"
-    "textures/bloom/standard-30-30.jpeg"
-    "textures/bloom/standard-30-60.jpeg"
-    "textures/grind/fine-60.jpeg"
-    "textures/grind/coarse-4.jpeg"
-    "textures/grind/very-fine-30.jpeg"
-    "textures/grind/med-fine-90.jpeg"
-    "textures/grind/medium-120.jpeg"
-    "textures/your-choice.jpeg"
-    */
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////
+  // "textures/ratio/12-200.jpeg";
+  // "textures/ratio/15-200.jpeg";
+  // "textures/ratio/15-250.jpeg";
+  // "textures/ratio/24-200.jpeg";
+  // "textures/ratio/30-200.jpeg";
+  // "textures/your-choice.jpeg";
+  // "textures/temperature/75C.jpeg";
+  // "textures/temperature/80C.jpeg";
+  // "textures/temperature/85C.jpeg";
+  // "textures/temperature/90C.jpeg";
+  // "textures/temperature/95C.jpeg";
+  // "textures/your-choice.jpeg";
+  // "textures/bloom/inverted-no-bloom.jpeg";
+  // "textures/bloom/inverted-30-60.jpeg";
+  // "textures/bloom/standard-no-bloom.jpeg";
+  // "textures/bloom/inverted-30-30.jpeg";
+  // "textures/bloom/standard-30-30.jpeg";
+  // "textures/bloom/standard-30-60.jpeg";
+  // "textures/grind/fine-60.jpeg";
+  // "textures/grind/coarse-4.jpeg";
+  // "textures/grind/very-fine-30.jpeg";
+  // "textures/grind/med-fine-90.jpeg";
+  // "textures/grind/medium-120.jpeg";
+  // "textures/your-choice.jpeg";
+
   const stir1 = React.useMemo(
     () => new TextureLoader().load("textures/stir/stir1.jpeg"),
     []
@@ -70,10 +61,10 @@ export default function Dice({ dice }) {
 
   const [rotation, setRotation] = useState();
   const [diceNumber, setDiceNumber] = useState(0);
-  // const [diceNumberTwo, setDiceNumberTwo] = useState(0);
-  // const [diceNumberThree, setDiceNumberThree] = useState(0);
-  // const [diceNumberFour, setDiceNumberFour] = useState(0);
-  // const [diceNumberFive, setDiceNumberFive] = useState(0);
+  const [diceNumberTwo, setDiceNumberTwo] = useState(0);
+  const [diceNumberThree, setDiceNumberThree] = useState(0);
+  const [diceNumberFour, setDiceNumberFour] = useState(0);
+  const [diceNumberFive, setDiceNumberFive] = useState(0);
   const [currentSlot, setCurrentSlot] = useState();
   const [haveSet, setHaveSet] = useState(false);
   const [hover, set] = useState(false);
@@ -97,16 +88,16 @@ export default function Dice({ dice }) {
         if (diceNumber) setDiceOne(diceNumber);
         break;
       case 2:
-        if (diceNumber) setDiceTwo(diceNumber);
+        if (diceNumberTwo) setDiceTwo(diceNumberTwo);
         break;
       case 3:
-        if (diceNumber) setDiceThree(diceNumber);
+        if (diceNumberThree) setDiceThree(diceNumberThree);
         break;
       case 4:
-        if (diceNumber) setDiceFour(diceNumber);
+        if (diceNumberFour) setDiceFour(diceNumberFour);
         break;
       case 5:
-        if (diceNumber) setDiceFive(diceNumber);
+        if (diceNumberFive) setDiceFive(diceNumberFive);
         break;
       default:
         break;
@@ -162,6 +153,30 @@ export default function Dice({ dice }) {
               parseFloat(rotation[1].toFixed(2))
             )
           );
+          setDiceNumberTwo(
+            getDiceNumberTwo(
+              parseFloat(rotation[0].toFixed(2)),
+              parseFloat(rotation[1].toFixed(2))
+            )
+          );
+          setDiceNumberThree(
+            getDiceNumberThree(
+              parseFloat(rotation[0].toFixed(2)),
+              parseFloat(rotation[1].toFixed(2))
+            )
+          );
+          setDiceNumberFour(
+            getDiceNumberFour(
+              parseFloat(rotation[0].toFixed(2)),
+              parseFloat(rotation[1].toFixed(2))
+            )
+          );
+          setDiceNumberFive(
+            getDiceNumberFive(
+              parseFloat(rotation[0].toFixed(2)),
+              parseFloat(rotation[1].toFixed(2))
+            )
+          );
           setHaveSet(true);
           setTimeout(() => {
             setHaveSet(false);
@@ -191,73 +206,86 @@ export default function Dice({ dice }) {
     }
   });
 
-  const getDiceNumber = (rotationX, rotationZ) => {
-    if (rotationX === 3.14 && rotationZ === 0) return "Do not stir.";
-    if (rotationX === -3.14 && rotationZ === 0) return "Do not stir.";
-    if (rotationX === 0 && rotationZ === 3.14) return "Do not stir.";
-    if (rotationX === 0 && rotationZ === -3.14) return "Do not stir.";
+  const getDiceNumberFive = (rotationX, rotationZ) => {
+    if (rotationX === 3.14 && rotationZ === 0)
+      return "Do not stir before pressing.";
+    if (rotationX === -3.14 && rotationZ === 0)
+      return "Do not stir before pressing.";
+    if (rotationX === 0 && rotationZ === 3.14)
+      return "Do not stir before pressing.";
+    if (rotationX === 0 && rotationZ === -3.14)
+      return "Do not stir before pressing.";
 
     if (rotationX === 3.14 && rotationZ === -1.57)
-      return "Stir once in one direction.";
+      return "Stir once in one direction before pressing.";
     if (rotationX === 0 && rotationZ === 1.57)
-      return "Stir once in one direction.";
+      return "Stir once in one direction before pressing.";
 
     if (rotationX === -1.57)
-      return "Stir in a North/South/East/West pattern.";
+      return "Stir in a N/E/S/W pattern before pressing.";
 
-    if (rotationX === 1.57) return "Stir once clockwise and once counterclockwise.";
+    if (rotationX === 1.57)
+      return "Stir clockwise/counterclockwise before pressing.";
 
     if (rotationX === 0 && rotationZ === -1.57)
-      return "Stir twice in one direction.";
+      return "Stir twice in one direction before pressing.";
     if (rotationX === 3.14 && rotationZ === 1.57)
-      return "Stir twice in one direction.";
+      return "Stir twice in one direction before pressing.";
 
     if (rotationX === 3.14 && rotationZ === 3.14)
-      return "Your choice of stir technique.";
+      return "Your choice of stir technique before pressing.";
     if (rotationX === 3.14 && rotationZ === -3.14)
-      return "Your choice of stir technique.";
+      return "Your choice of stir technique before pressing.";
     if (rotationX === -3.14 && rotationZ === 3.14)
-      return "Your choice of stir technique.";
+      return "Your choice of stir technique before pressing.";
     if (rotationX === 0 && rotationZ === 0)
-      return "Your choice of stir technique.";
+      return "Your choice of stir technique before pressing.";
   };
 
-  const getDiceNumberTwo = (rotationX, rotationZ) => {
-    if (rotationX === 3.14 && rotationZ === 0) return "Inverted/30s Bloom/30g Water.";
-    if (rotationX === -3.14 && rotationZ === 0) return "Inverted/30s Bloom/30g Water.";
-    if (rotationX === 0 && rotationZ === 3.14) return "Inverted/30s Bloom/30g Water.";
-    if (rotationX === 0 && rotationZ === -3.14) return "Inverted/30s Bloom/30g Water.";
+  const getDiceNumberFour = (rotationX, rotationZ) => {
+    if (rotationX === 3.14 && rotationZ === 0)
+      return "Inverted position 30s Bloom with 30g water.";
+    if (rotationX === -3.14 && rotationZ === 0)
+      return "Inverted position 30s Bloom with 30g water.";
+    if (rotationX === 0 && rotationZ === 3.14)
+      return "Inverted position 30s Bloom with 30g water.";
+    if (rotationX === 0 && rotationZ === -3.14)
+      return "Inverted position 30s Bloom/30g water.";
 
     if (rotationX === 3.14 && rotationZ === -1.57)
-      return "Inverted/30s Bloom/60g Water.";
+      return "Inverted position 30s Bloom with 60g water.";
     if (rotationX === 0 && rotationZ === 1.57)
-      return "Inverted/30s Bloom/60g Water.";
+      return "Inverted position 30s Bloom with 60g water.";
 
-    if (rotationX === -1.57)
-      return "Inverted with no bloom.";
+    if (rotationX === -1.57) return "Inverted position with no bloom.";
 
-    if (rotationX === 1.57) return "Standard/30s Bloom/30g Water.";
+    if (rotationX === 1.57)
+      return "Standard position 30s Bloom with 30g water.";
 
     if (rotationX === 0 && rotationZ === -1.57)
-      return "Standard/30s Bloom/60g Water.";
+      return "Standard position 30s Bloom with 60g water.";
     if (rotationX === 3.14 && rotationZ === 1.57)
-      return "Standard/30s Bloom/60g Water.";
+      return "Standard position 30s Bloom with 60g water.";
 
     if (rotationX === 3.14 && rotationZ === 3.14)
-      return "Standard with no bloom.";
+      return "Standard position with no bloom.";
     if (rotationX === 3.14 && rotationZ === -3.14)
-      return "Standard with no bloom.";
+      return "Standard position with no bloom.";
     if (rotationX === -3.14 && rotationZ === 3.14)
-      return "Standard with no bloom.";
+      return "Standard position with no bloom.";
     if (rotationX === 0 && rotationZ === 0)
-      return "Standard with no bloom.";
+      return "Standard position with no bloom.";
   };
 
   const getDiceNumberThree = (rotationX, rotationZ) => {
-    if (rotationX === 3.14 && rotationZ === 0) return "Coarse grind with a 4 min brew time.";
-    if (rotationX === -3.14 && rotationZ === 0) return "Coarse grind with a 4 min brew time.";
-    if (rotationX === 0 && rotationZ === 3.14) return "Coarse grind with a 4 min brew time.";
-    if (rotationX === 0 && rotationZ === -3.14) return "Coarse grind with a 4 min brew time.";
+    if (rotationX === 3.14 && rotationZ === 0)
+      return "Coarse grind with a 4 min brew time.";
+    if (rotationX === -3.14 && rotationZ === 0)
+      return "Coarse grind with a 4 min brew time.";
+    if (rotationX === 0 && rotationZ === 3.14)
+      return "Coarse grind with a 4 min brew time.";
+    if (rotationX === 0 && rotationZ === -3.14)
+      return "Coarse grind with a 4 min brew time.";
 
     if (rotationX === 3.14 && rotationZ === -1.57)
       return "Fine grind with a 60 sec brew time.";
@@ -265,40 +293,44 @@ export default function Dice({ dice }) {
       return "Fine grind with a 60 sec brew time.";
 
     if (rotationX === -1.57)
-      return "Medium fine grind with a 90 sec brew time";
+      return "Medium fine grind with a 90 sec brew time.";
 
     if (rotationX === 1.57) return "Medium grind with a 120 sec brew time.";
 
     if (rotationX === 0 && rotationZ === -1.57)
-      return "Very fine grind with a 30 sec brew time";
+      return "Very fine grind with a 30 sec brew time.";
     if (rotationX === 3.14 && rotationZ === 1.57)
-      return "Very fine grind with a 30 sec brew time";
+      return "Very fine grind with a 30 sec brew time.";
 
     if (rotationX === 3.14 && rotationZ === 3.14)
-      return "Your choice of grind and brew.";
+      return "Your choice of grind and brew time.";
     if (rotationX === 3.14 && rotationZ === -3.14)
-      return "Your choice of grind and brew.";
+      return "Your choice of grind and brew time.";
     if (rotationX === -3.14 && rotationZ === 3.14)
-      return "Your choice of grind and brew.";
+      return "Your choice of grind and brew time.";
     if (rotationX === 0 && rotationZ === 0)
-      return "Your choice of grind and brew.";
+      return "Your choice of grind and brew time.";
   };
 
-  const getDiceNumberFour = (rotationX, rotationZ) => {
-    if (rotationX === 3.14 && rotationZ === 0) return "12g of coffee to 200g of water";
-    if (rotationX === -3.14 && rotationZ === 0) return "12g of coffee to 200g of water";
-    if (rotationX === 0 && rotationZ === 3.14) return "12g of coffee to 200g of water";
-    if (rotationX === 0 && rotationZ === -3.14) return "12g of coffee to 200g of water";
+  const getDiceNumberTwo = (rotationX, rotationZ) => {
+    if (rotationX === 3.14 && rotationZ === 0)
+      return "12g of coffee to 200g of water.";
+    if (rotationX === -3.14 && rotationZ === 0)
+      return "12g of coffee to 200g of water.";
+    if (rotationX === 0 && rotationZ === 3.14)
+      return "12g of coffee to 200g of water.";
+    if (rotationX === 0 && rotationZ === -3.14)
+      return "12g of coffee to 200g of water.";
 
     if (rotationX === 3.14 && rotationZ === -1.57)
       return "15g of coffee to 200g of water.";
     if (rotationX === 0 && rotationZ === 1.57)
       return "15g of coffee to 200g of water.";
 
-    if (rotationX === -1.57)
-      return "15g of coffee to 250g of water";
+    if (rotationX === -1.57) return "15g of coffee to 250g of water";
 
-    if (rotationX === 1.57) return "24g of coffee to 200g of water (dilute to share).";
+    if (rotationX === 1.57)
+      return "24g of coffee to 200g of water (dilute to share).";
 
     if (rotationX === 0 && rotationZ === -1.57)
       return "30g of coffee to 200g of water (dilute to share).";
@@ -315,26 +347,26 @@ export default function Dice({ dice }) {
       return "Your choice of coffee to water ratio.";
   };
 
-  const getDiceNumberFive = (rotationX, rotationZ) => {
+  const getDiceNumber = (rotationX, rotationZ) => {
     if (rotationX === 3.14 && rotationZ === 0) return "Heat water to 167F/75C.";
-    if (rotationX === -3.14 && rotationZ === 0) return "Heat water to 167F/75C.";
+    if (rotationX === -3.14 && rotationZ === 0)
+      return "Heat water to 167F/75C.";
     if (rotationX === 0 && rotationZ === 3.14) return "Heat water to 167F/75C.";
-    if (rotationX === 0 && rotationZ === -3.14) return "Heat water to 167F/75C.";
+    if (rotationX === 0 && rotationZ === -3.14)
+      return "Heat water to 167F/75C.";
 
     if (rotationX === 3.14 && rotationZ === -1.57)
       return "Heat water to 176F/80C.";
-    if (rotationX === 0 && rotationZ === 1.57)
-      return "Heat water to 176F/80C.";
+    if (rotationX === 0 && rotationZ === 1.57) return "Heat water to 176F/80C.";
 
-    if (rotationX === -1.57)
-      return "Heat water to 185F/85C.";
+    if (rotationX === -1.57) return "Heat water to 185F/85C.";
 
     if (rotationX === 1.57) return "Heat water to 194F/90C.";
 
     if (rotationX === 0 && rotationZ === -1.57)
-      return "Heat water to 203F/95C";
+      return "Heat water to 203F/95C.";
     if (rotationX === 3.14 && rotationZ === 1.57)
-      return "Heat water to 203F/95C";
+      return "Heat water to 203F/95C.";
 
     if (rotationX === 3.14 && rotationZ === 3.14)
       return "Your choice of water temperature.";
