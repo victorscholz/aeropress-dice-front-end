@@ -127,6 +127,27 @@ function Button() {
   );
 }
 
+// const YourComponent = () => {
+//   // How you setup the state hooks
+//   const [yourState, setYourState] = useState(defaultValue);
+
+//   // This will trigger after a state change
+//   useEffect(
+//     () => {
+//       // yourState is the "current state"
+//       if (yourState === blahblah) {
+//         // someNewValue is the "next state"
+//         setYourState(someNewValue);
+//       }
+
+//       // the return will only trigger before the component unmounts. most of the time you won't need this.
+//       return () => {};
+//     },
+//     // This is an optional parameter - it tells the effect to only trigger when the following values change (in this case "yourState")
+//     [yourState]
+//   );
+// };
+
 function Save() {
   // const dices = useStore((state) => state.dices);
   const diceOne = useStore((state) => state.diceOne);
@@ -154,21 +175,23 @@ function Save() {
     document.body.style.cursor = hover ? "pointer" : "auto";
   }, [hover]);
 
-  // useEffect(() => {
-  //   const option = {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       accept: "application/json",
-  //     },
-  //   };
-  //   fetch("http://localhost:3000/recipes/", option)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setCreatedRecipes(data, ...createdRecipes);
-  //       console.log(data);
-  //     });
-  // },[diceOne]);
+  useEffect(() => {
+    const option = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({ dice: bDices }),
+    };
+    // console.log(bDices)
+    fetch("http://localhost:3000/recipes/", option)
+      .then((response) => response.json())
+      .then((newRecipe) => {
+        console.log(newRecipe);
+        // debugger;
+      });
+  }, [diceOne]);
 
   return (
     <a.mesh
@@ -180,28 +203,16 @@ function Save() {
         e.stopPropagation();
         set(false);
       }}
-      onClick={() => {
-        const option = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-          },
-          body: JSON.stringify({ dice: bDices }),
-        };
-        fetch("http://localhost:3000/recipes/", option)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            // debugger;
-          });
+      onClick={(e) => {
+        e.stopPropagation();
+        setCreatedRecipes(createdRecipes);
         // setSavePhase("Saved");
         if (amountSaved <= 7) {
           setSavePhase(bDices);
           // console.log(savePhase);
           // console.log(aDices)
         }
-
+        // if POST already happened, don't POST again
         // setGamePhase("Start");
 
         // if (saveRecipes) {

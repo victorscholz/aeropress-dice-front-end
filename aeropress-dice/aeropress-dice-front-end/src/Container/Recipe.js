@@ -16,10 +16,12 @@ const Recipe = () => {
   const diceFive = useStore((state) => state.diceFive);
   const newRecipe = useStore((state) => state.newRecipe);
   // const createdRecipe = useStore((state) => state.createdRecipe)
+  const [currentRecipes, setCurrentRecipes] = useState([]);
   // console.log(savePhase);
   // console.log(possibleScores, currentScores, totalScores)
-  const [createdRecipes, setCreatedRecipes] = useState([]);
+  // const [createdRecipes, setCreatedRecipes] = useState([]);
   useEffect(() => {
+    setCurrentRecipes(currentRecipes);
     const option = {
       method: "GET",
       headers: {
@@ -29,19 +31,19 @@ const Recipe = () => {
     };
     fetch("http://localhost:3000/recipes/", option)
       .then((response) => response.json())
-      .then((newRecipe) => {
-        setCreatedRecipes(newRecipe);
-        console.log(newRecipe[newRecipe.length - 1])
-        console.log(newRecipe)
+      .then((currentRecipes) => {
+        setCurrentRecipes(currentRecipes);
+        console.log(currentRecipes)
+        // console.log(currentRecipes[currentRecipes.length - 1])
       });
-    }, [diceOne]);
-    // const list = createdRecipes[0]
-    // console.log(list)
-    // const list = createdRecipes.map((recipe) => (<li key={recipe.id} dice={recipe}></li>))
-    // console.log(list)
-    // {dices.map((dice) => (
-    //   <Dice key={dice.id} dice={dice} />
-    // ))}
+  }, [diceOne]);
+  // const list = createdRecipes[0]
+  // console.log(list)
+  // const list = createdRecipes.map((recipe) => (<li key={recipe.id} dice={recipe}></li>))
+  // console.log(list)
+  // {dices.map((dice) => (
+  //   <Dice key={dice.id} dice={dice} />
+  // ))}
   return (
     // console.log(savePhase),
     // console.log(diceOne, diceTwo, diceThree, diceFour, diceFive),
@@ -184,7 +186,7 @@ const Recipe = () => {
         name="first"
         // currentScore={savePhase}
         // if state of store value ? true, render else null
-        possibleScore={savePhase}
+        possibleScore={currentRecipes}
         // savePhase={savePhase}
         // currentRecipe={currentRecipe}
       />
