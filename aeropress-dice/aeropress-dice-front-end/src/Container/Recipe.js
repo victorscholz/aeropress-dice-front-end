@@ -14,7 +14,9 @@ const Recipe = () => {
   const diceThree = useStore((state) => state.diceThree);
   const diceFour = useStore((state) => state.diceFour);
   const diceFive = useStore((state) => state.diceFive);
-  const newRecipe = useStore((state) => state.newRecipe);
+  // const aDices = [diceOne, diceTwo, diceThree, diceFour, diceFive];
+  // const bDices = aDices.join().replaceAll(",", "\n");
+  // const newRecipe = useStore((state) => state.newRecipe);
   // const createdRecipe = useStore((state) => state.createdRecipe)
   const [currentRecipes, setCurrentRecipes] = useState([]);
   // console.log(savePhase);
@@ -32,8 +34,8 @@ const Recipe = () => {
     fetch("http://localhost:3000/recipes/", option)
       .then((response) => response.json())
       .then((currentRecipes) => {
-        setCurrentRecipes(currentRecipes);
         console.log(currentRecipes)
+        setCurrentRecipes(currentRecipes);
         // console.log(currentRecipes[currentRecipes.length - 1])
       });
   }, [diceOne]);
@@ -51,6 +53,7 @@ const Recipe = () => {
       <Text
         rotation={[-0.5 * Math.PI, 0, 0]}
         position={[-4.1, 0.22, -3]}
+        font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
         fontSize={0.31}
         color="black"
       >
@@ -166,7 +169,8 @@ const Recipe = () => {
       ///////////////////////////////////////// Saved Recipe Section
       <Text
         rotation={[-0.5 * Math.PI, 0, 0]}
-        position={[-4.5, 0.22, -0.5]}
+        position={[-4.55, 0.22, -0.5]}
+        font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
         fontSize={0.3}
         color="black"
       >
@@ -186,7 +190,8 @@ const Recipe = () => {
         name="first"
         // currentScore={savePhase}
         // if state of store value ? true, render else null
-        possibleScore={currentRecipes}
+        // possibleScore={currentRecipes}
+        possibleScore={savePhase}
         // savePhase={savePhase}
         // currentRecipe={currentRecipe}
       />

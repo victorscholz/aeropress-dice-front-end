@@ -183,7 +183,7 @@ export const [useStore, api] = create(
       setGamePhase: (phase) => {
         set({ gamePhase: phase });
       },
-      savePhase: " ",
+      savePhase: "",
       setSavePhase: (phase) => {
         set({ savePhase: phase });
       },

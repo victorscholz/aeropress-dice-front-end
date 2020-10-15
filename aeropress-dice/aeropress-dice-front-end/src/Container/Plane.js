@@ -103,7 +103,7 @@ function Button() {
           textAlign="center"
           position={[0, 0.03, 0.03]}
           letterSpacing={-0.02}
-          // font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
+          font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
           fontSize={0.3}
         >
           Make Coffee!
@@ -113,7 +113,7 @@ function Button() {
         <Text
           textAlign="center"
           position={[0, 0.03, 0.03]}
-          // font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
+          font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
           letterSpacing={-0.02}
           color={amountRolled <= 20 ? "white" : "gray"}
           fontSize={0.3}
@@ -156,7 +156,7 @@ function Save() {
   const diceFour = useStore((state) => state.diceFour);
   const diceFive = useStore((state) => state.diceFive);
   const amountSaved = useStore((state) => state.amountSaved);
-  // const { savePhase } = useStore();
+  const { savePhase } = useStore();
   const aDices = [diceOne, diceTwo, diceThree, diceFour, diceFive];
   const bDices = aDices.join().replaceAll(",", "\n");
   const setSavePhase = useStore((state) => state.setSavePhase);
@@ -191,7 +191,7 @@ function Save() {
         console.log(newRecipe);
         // debugger;
       });
-  }, [diceOne]);
+  }, [savePhase]);
 
   return (
     <a.mesh
@@ -203,8 +203,8 @@ function Save() {
         e.stopPropagation();
         set(false);
       }}
-      onClick={(e) => {
-        e.stopPropagation();
+      onClick={() => {
+        // e.stopPropagation();
         setCreatedRecipes(createdRecipes);
         // setSavePhase("Saved");
         if (amountSaved <= 7) {
@@ -231,6 +231,7 @@ function Save() {
         textAlign="center"
         position={[0, 0.03, 0.03]}
         letterSpacing={-0.02}
+        font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
         fontSize={0.3}
       >
         Save Recipe
@@ -289,7 +290,7 @@ export default () => {
           <Suspense fallback={<HTML>Loading...</HTML>}>
             <Text
               position={[2.6, 0.02, -3.6]}
-              // font={}
+              font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
               letterSpacing={-0.02}
               color="black"
               rotation={[-0.5 * Math.PI, 0, 0]}

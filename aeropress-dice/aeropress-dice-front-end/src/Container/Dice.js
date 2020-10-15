@@ -70,6 +70,10 @@ export default function Dice({ dice }) {
 
   const [rotation, setRotation] = useState();
   const [diceNumber, setDiceNumber] = useState(0);
+  // const [diceNumberTwo, setDiceNumberTwo] = useState(0);
+  // const [diceNumberThree, setDiceNumberThree] = useState(0);
+  // const [diceNumberFour, setDiceNumberFour] = useState(0);
+  // const [diceNumberFive, setDiceNumberFive] = useState(0);
   const [currentSlot, setCurrentSlot] = useState();
   const [haveSet, setHaveSet] = useState(false);
   const [hover, set] = useState(false);
@@ -201,7 +205,7 @@ export default function Dice({ dice }) {
     if (rotationX === -1.57)
       return "Stir in a North/South/East/West pattern.";
 
-    if (rotationX === 1.57) return "Your choice of stir technique.";
+    if (rotationX === 1.57) return "Stir once clockwise and once counterclockwise.";
 
     if (rotationX === 0 && rotationZ === -1.57)
       return "Stir twice in one direction.";
@@ -209,13 +213,137 @@ export default function Dice({ dice }) {
       return "Stir twice in one direction.";
 
     if (rotationX === 3.14 && rotationZ === 3.14)
-      return "Stir once clockwise and once counterclockwise.";
+      return "Your choice of stir technique.";
     if (rotationX === 3.14 && rotationZ === -3.14)
-      return "Stir once clockwise and once counterclockwise.";
+      return "Your choice of stir technique.";
     if (rotationX === -3.14 && rotationZ === 3.14)
-      return "Stir once clockwise and once counterclockwise.";
+      return "Your choice of stir technique.";
     if (rotationX === 0 && rotationZ === 0)
-      return "Stir once clockwise and once counterclockwise.";
+      return "Your choice of stir technique.";
+  };
+
+  const getDiceNumberTwo = (rotationX, rotationZ) => {
+    if (rotationX === 3.14 && rotationZ === 0) return "Inverted/30s Bloom/30g Water.";
+    if (rotationX === -3.14 && rotationZ === 0) return "Inverted/30s Bloom/30g Water.";
+    if (rotationX === 0 && rotationZ === 3.14) return "Inverted/30s Bloom/30g Water.";
+    if (rotationX === 0 && rotationZ === -3.14) return "Inverted/30s Bloom/30g Water.";
+
+    if (rotationX === 3.14 && rotationZ === -1.57)
+      return "Inverted/30s Bloom/60g Water.";
+    if (rotationX === 0 && rotationZ === 1.57)
+      return "Inverted/30s Bloom/60g Water.";
+
+    if (rotationX === -1.57)
+      return "Inverted with no bloom.";
+
+    if (rotationX === 1.57) return "Standard/30s Bloom/30g Water.";
+
+    if (rotationX === 0 && rotationZ === -1.57)
+      return "Standard/30s Bloom/60g Water.";
+    if (rotationX === 3.14 && rotationZ === 1.57)
+      return "Standard/30s Bloom/60g Water.";
+
+    if (rotationX === 3.14 && rotationZ === 3.14)
+      return "Standard with no bloom.";
+    if (rotationX === 3.14 && rotationZ === -3.14)
+      return "Standard with no bloom.";
+    if (rotationX === -3.14 && rotationZ === 3.14)
+      return "Standard with no bloom.";
+    if (rotationX === 0 && rotationZ === 0)
+      return "Standard with no bloom.";
+  };
+
+  const getDiceNumberThree = (rotationX, rotationZ) => {
+    if (rotationX === 3.14 && rotationZ === 0) return "Coarse grind with a 4 min brew time.";
+    if (rotationX === -3.14 && rotationZ === 0) return "Coarse grind with a 4 min brew time.";
+    if (rotationX === 0 && rotationZ === 3.14) return "Coarse grind with a 4 min brew time.";
+    if (rotationX === 0 && rotationZ === -3.14) return "Coarse grind with a 4 min brew time.";
+
+    if (rotationX === 3.14 && rotationZ === -1.57)
+      return "Fine grind with a 60 sec brew time.";
+    if (rotationX === 0 && rotationZ === 1.57)
+      return "Fine grind with a 60 sec brew time.";
+
+    if (rotationX === -1.57)
+      return "Medium fine grind with a 90 sec brew time";
+
+    if (rotationX === 1.57) return "Medium grind with a 120 sec brew time.";
+
+    if (rotationX === 0 && rotationZ === -1.57)
+      return "Very fine grind with a 30 sec brew time";
+    if (rotationX === 3.14 && rotationZ === 1.57)
+      return "Very fine grind with a 30 sec brew time";
+
+    if (rotationX === 3.14 && rotationZ === 3.14)
+      return "Your choice of grind and brew.";
+    if (rotationX === 3.14 && rotationZ === -3.14)
+      return "Your choice of grind and brew.";
+    if (rotationX === -3.14 && rotationZ === 3.14)
+      return "Your choice of grind and brew.";
+    if (rotationX === 0 && rotationZ === 0)
+      return "Your choice of grind and brew.";
+  };
+
+  const getDiceNumberFour = (rotationX, rotationZ) => {
+    if (rotationX === 3.14 && rotationZ === 0) return "12g of coffee to 200g of water";
+    if (rotationX === -3.14 && rotationZ === 0) return "12g of coffee to 200g of water";
+    if (rotationX === 0 && rotationZ === 3.14) return "12g of coffee to 200g of water";
+    if (rotationX === 0 && rotationZ === -3.14) return "12g of coffee to 200g of water";
+
+    if (rotationX === 3.14 && rotationZ === -1.57)
+      return "15g of coffee to 200g of water.";
+    if (rotationX === 0 && rotationZ === 1.57)
+      return "15g of coffee to 200g of water.";
+
+    if (rotationX === -1.57)
+      return "15g of coffee to 250g of water";
+
+    if (rotationX === 1.57) return "24g of coffee to 200g of water (dilute to share).";
+
+    if (rotationX === 0 && rotationZ === -1.57)
+      return "30g of coffee to 200g of water (dilute to share).";
+    if (rotationX === 3.14 && rotationZ === 1.57)
+      return "30g of coffee to 200g of water (dilute to share).";
+
+    if (rotationX === 3.14 && rotationZ === 3.14)
+      return "Your choice of coffee to water ratio.";
+    if (rotationX === 3.14 && rotationZ === -3.14)
+      return "Your choice of coffee to water ratio.";
+    if (rotationX === -3.14 && rotationZ === 3.14)
+      return "Your choice of coffee to water ratio.";
+    if (rotationX === 0 && rotationZ === 0)
+      return "Your choice of coffee to water ratio.";
+  };
+
+  const getDiceNumberFive = (rotationX, rotationZ) => {
+    if (rotationX === 3.14 && rotationZ === 0) return "Heat water to 167F/75C.";
+    if (rotationX === -3.14 && rotationZ === 0) return "Heat water to 167F/75C.";
+    if (rotationX === 0 && rotationZ === 3.14) return "Heat water to 167F/75C.";
+    if (rotationX === 0 && rotationZ === -3.14) return "Heat water to 167F/75C.";
+
+    if (rotationX === 3.14 && rotationZ === -1.57)
+      return "Heat water to 176F/80C.";
+    if (rotationX === 0 && rotationZ === 1.57)
+      return "Heat water to 176F/80C.";
+
+    if (rotationX === -1.57)
+      return "Heat water to 185F/85C.";
+
+    if (rotationX === 1.57) return "Heat water to 194F/90C.";
+
+    if (rotationX === 0 && rotationZ === -1.57)
+      return "Heat water to 203F/95C";
+    if (rotationX === 3.14 && rotationZ === 1.57)
+      return "Heat water to 203F/95C";
+
+    if (rotationX === 3.14 && rotationZ === 3.14)
+      return "Your choice of water temperature.";
+    if (rotationX === 3.14 && rotationZ === -3.14)
+      return "Your choice of water temperature.";
+    if (rotationX === -3.14 && rotationZ === 3.14)
+      return "Your choice of water temperature.";
+    if (rotationX === 0 && rotationZ === 0)
+      return "Your choice of water temperature.";
   };
 
   function setDice(dice) {
