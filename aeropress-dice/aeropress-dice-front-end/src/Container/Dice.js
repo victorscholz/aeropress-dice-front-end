@@ -9,31 +9,102 @@ import shallow from "zustand/shallow";
 import { TextureLoader } from "three";
 
 export default function Dice({ dice }) {
-  // "textures/ratio/12-200.jpeg";
-  // "textures/ratio/15-200.jpeg";
-  // "textures/ratio/15-250.jpeg";
-  // "textures/ratio/24-200.jpeg";
-  // "textures/ratio/30-200.jpeg";
-  // "textures/your-choice.jpeg";
-  // "textures/temperature/75C.jpeg";
-  // "textures/temperature/80C.jpeg";
-  // "textures/temperature/85C.jpeg";
-  // "textures/temperature/90C.jpeg";
-  // "textures/temperature/95C.jpeg";
-  // "textures/your-choice.jpeg";
-  // "textures/bloom/inverted-no-bloom.jpeg";
-  // "textures/bloom/inverted-30-60.jpeg";
-  // "textures/bloom/standard-no-bloom.jpeg";
-  // "textures/bloom/inverted-30-30.jpeg";
-  // "textures/bloom/standard-30-30.jpeg";
-  // "textures/bloom/standard-30-60.jpeg";
-  // "textures/grind/fine-60.jpeg";
-  // "textures/grind/coarse-4.jpeg";
-  // "textures/grind/very-fine-30.jpeg";
-  // "textures/grind/med-fine-90.jpeg";
-  // "textures/grind/medium-120.jpeg";
-  // "textures/your-choice.jpeg";
-
+  const ratio1 = React.useMemo(
+    () => new TextureLoader().load("textures/ratio/12-200.jpeg"),
+    []
+  );
+  const ratio2 = React.useMemo(
+    () => new TextureLoader().load("textures/ratio/15-200.jpeg"),
+    []
+  );
+  const ratio3 = React.useMemo(
+    () => new TextureLoader().load("textures/ratio/15-250.jpeg"),
+    []
+  );
+  const ratio4 = React.useMemo(
+    () => new TextureLoader().load("textures/ratio/24-200.jpeg"),
+    []
+  );
+  const ratio5 = React.useMemo(
+    () => new TextureLoader().load("textures/ratio/30-200.jpeg"),
+    []
+  );
+  const ratio6 = React.useMemo(
+    () => new TextureLoader().load("textures/your-choice.jpeg"),
+    []
+  );
+  const temperature1 = React.useMemo(
+    () => new TextureLoader().load("textures/temperature/75C.jpeg"),
+    []
+  );
+  const temperature2 = React.useMemo(
+    () => new TextureLoader().load("textures/temperature/80C.jpeg"),
+    []
+  );
+  const temperature3 = React.useMemo(
+    () => new TextureLoader().load("textures/temperature/85C.jpeg"),
+    []
+  );
+  const temperature4 = React.useMemo(
+    () => new TextureLoader().load("textures/temperature/90C.jpeg"),
+    []
+  );
+  const temperature5 = React.useMemo(
+    () => new TextureLoader().load("textures/temperature/95C.jpeg"),
+    []
+  );
+  const temperature6 = React.useMemo(
+    () => new TextureLoader().load("textures/your-choice.jpeg"),
+    []
+  );
+  const bloom1 = React.useMemo(
+    () => new TextureLoader().load("textures/bloom/inverted-no-bloom.jpeg"),
+    []
+  );
+  const bloom2 = React.useMemo(
+    () => new TextureLoader().load("textures/bloom/inverted-30-60.jpeg"),
+    []
+  );
+  const bloom3 = React.useMemo(
+    () => new TextureLoader().load("textures/bloom/standard-no-bloom.jpeg"),
+    []
+  );
+  const bloom4 = React.useMemo(
+    () => new TextureLoader().load("textures/bloom/inverted-30-30.jpeg"),
+    []
+  );
+  const bloom5 = React.useMemo(
+    () => new TextureLoader().load("textures/bloom/standard-30-30.jpeg"),
+    []
+  );
+  const bloom6 = React.useMemo(
+    () => new TextureLoader().load("textures/bloom/standard-30-60.jpeg"),
+    []
+  );
+  const grind1 = React.useMemo(
+    () => new TextureLoader().load("textures/grind/fine-60.jpeg"),
+    []
+  );
+  const grind2 = React.useMemo(
+    () => new TextureLoader().load("textures/grind/coarse-4.jpeg"),
+    []
+  );
+  const grind3 = React.useMemo(
+    () => new TextureLoader().load("textures/grind/very-fine-30.jpeg"),
+    []
+  );
+  const grind4 = React.useMemo(
+    () => new TextureLoader().load("textures/grind/med-fine-90.jpeg"),
+    []
+  );
+  const grind5 = React.useMemo(
+    () => new TextureLoader().load("textures/grind/medium-120.jpeg"),
+    []
+  );
+  const grind6 = React.useMemo(
+    () => new TextureLoader().load("textures/your-choice.jpeg"),
+    []
+  );
   const stir1 = React.useMemo(
     () => new TextureLoader().load("textures/stir/stir1.jpeg"),
     []

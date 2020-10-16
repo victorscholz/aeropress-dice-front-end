@@ -36,15 +36,6 @@ function Button() {
   const setGamePhase = useStore((state) => state.setGamePhase);
   const [hover, set] = useState(false);
 
-  // const initial = {
-  //   one: null,
-  //   two: null,
-  //   three: null,
-  //   four: null,
-  //   five: null,
-  //   six: null,
-  // };
-
   const props = useSpring({
     position: hover ? [1.1, 0.1, 2.9] : [1.1, 0, 2.9],
   });
@@ -80,7 +71,7 @@ function Button() {
     <a.mesh
       onPointerOver={(e) => {
         e.stopPropagation();
-        amountRolled <= 25 && set(true);
+        amountRolled <= 30 && set(true);
       }}
       onPointerOut={(e) => {
         e.stopPropagation();
@@ -88,7 +79,7 @@ function Button() {
       }}
       onClick={() => {
         setGamePhase("Roll Dice");
-        if (amountRolled <= 25) {
+        if (amountRolled <= 30) {
           reroll(dices, setReroll, amountRolled, setAmountRolled);
           setStartedGame(true);
         }
