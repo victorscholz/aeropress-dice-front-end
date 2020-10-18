@@ -169,12 +169,12 @@ const Recipe = () => {
       ///////////////////////////////////////// Saved Recipe Section
       <Text
         rotation={[-0.5 * Math.PI, 0, 0]}
-        position={[-4.4, 0.22, -0.5]}
+        position={[-4, 0.22, -0.5]}
         font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
         fontSize={0.3}
         color="black"
       >
-        Saved Recipe:
+        Last Saved Recipe:
       </Text>
       <Text
         rotation={[-0.5 * Math.PI, 0, 0]}
@@ -348,6 +348,7 @@ function ScoreCell({
       <Text
         rotation={[-0.5 * Math.PI, 0, 0]}
         position={positionText}
+        // textAlign="center"
         fontSize={0.2}
         color="black"
       >
