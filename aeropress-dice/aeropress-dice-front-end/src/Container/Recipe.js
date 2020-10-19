@@ -7,21 +7,14 @@ import { a } from "@react-spring/three";
 import { useScore, useStore } from "../Store/Store.js";
 
 const Recipe = () => {
-  // const { possibleScores, currentScores } = useScore();
   const { savePhase } = useStore();
   const diceOne = useStore((state) => state.diceOne);
   const diceTwo = useStore((state) => state.diceTwo);
   const diceThree = useStore((state) => state.diceThree);
   const diceFour = useStore((state) => state.diceFour);
   const diceFive = useStore((state) => state.diceFive);
-  // const aDices = [diceOne, diceTwo, diceThree, diceFour, diceFive];
-  // const bDices = aDices.join().replaceAll(",", "\n");
-  // const newRecipe = useStore((state) => state.newRecipe);
-  // const createdRecipe = useStore((state) => state.createdRecipe)
   const [currentRecipes, setCurrentRecipes] = useState([]);
-  // console.log(savePhase);
-  // console.log(possibleScores, currentScores, totalScores)
-  // const [createdRecipes, setCreatedRecipes] = useState([]);
+
   useEffect(() => {
     setCurrentRecipes(currentRecipes);
     const option = {
@@ -39,16 +32,8 @@ const Recipe = () => {
         // console.log(currentRecipes[currentRecipes.length - 1])
       });
   }, [diceOne]);
-  // const list = createdRecipes[0]
-  // console.log(list)
-  // const list = createdRecipes.map((recipe) => (<li key={recipe.id} dice={recipe}></li>))
-  // console.log(list)
-  // {dices.map((dice) => (
-  //   <Dice key={dice.id} dice={dice} />
-  // ))}
+
   return (
-    // console.log(savePhase),
-    // console.log(diceOne, diceTwo, diceThree, diceFour, diceFive),
     <group position={[0, -0.17, -0.21]}>
       <Text
         rotation={[-0.5 * Math.PI, 0, 0]}

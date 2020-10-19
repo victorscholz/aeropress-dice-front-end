@@ -1,5 +1,7 @@
 import create from "zustand";
 import { devtools } from "zustand/middleware";
+import { TextureLoader } from "three";
+import { useLoader } from "react-three-fiber";
 
 const initial = {
   one: 0,
@@ -24,7 +26,6 @@ export const [useScore] = create((set, get) => ({
   currentScores: initialCurrent,
   scoreCount: 0,
   totalScores: undefined,
-  // currentRecipe: initial,
   setScoreCount: (scoreCount) => {
     set({ scoreCount: scoreCount });
   },
@@ -45,18 +46,6 @@ export const [useScore] = create((set, get) => ({
     };
     set({ currentScores: currentScores });
   },
-  // saveRecipes: false,
-  // setSaveRecipes: (bool) => {
-  //   set({ saveRecipe: bool })
-  // },
-  // setSaveRecipe: (side, name) => {
-  //   let currentRecipe = get().currentRecipe;
-  //   currentRecipe = {
-  //     ...currentRecipe,
-  //     [name]: side,
-  //   };
-  //   set({ currentRecipe: currentRecipe });
-  // },
 }));
 
 export const [useStore, api] = create(
@@ -80,12 +69,6 @@ export const [useStore, api] = create(
           prev: undefined,
           api: undefined,
           name: "diceOne",
-          temperature1: undefined,
-          temperature2: undefined,
-          temperature3: undefined,
-          temperature4: undefined,
-          temperature5: undefined,
-          temperature6: undefined,
         },
         {
           id: 2,
@@ -94,12 +77,6 @@ export const [useStore, api] = create(
           prev: undefined,
           api: undefined,
           name: "diceTwo",
-          ratio1: undefined,
-          ratio2: undefined,
-          ratio3: undefined,
-          ratio4: undefined,
-          ratio5: undefined,
-          ratio6: undefined,
         },
         {
           id: 3,
@@ -108,12 +85,6 @@ export const [useStore, api] = create(
           prev: undefined,
           api: undefined,
           name: "diceThree",
-          grind1: undefined,
-          grind2: undefined,
-          grind3: undefined,
-          grind4: undefined,
-          grind5: undefined,
-          grind6: undefined,
         },
         {
           id: 4,
@@ -122,12 +93,6 @@ export const [useStore, api] = create(
           prev: undefined,
           api: undefined,
           name: "diceFour",
-          bloom1: undefined,
-          bloom2: undefined,
-          bloom3: undefined,
-          bloom4: undefined,
-          bloom5: undefined,
-          bloom6: undefined,
         },
         {
           id: 5,
@@ -136,12 +101,6 @@ export const [useStore, api] = create(
           prev: undefined,
           api: undefined,
           name: "diceFive",
-          stir1: undefined,
-          stir2: undefined,
-          stir3: undefined,
-          stir4: undefined,
-          stir5: undefined,
-          stir6: undefined,
         },
       ],
       slots: [
@@ -221,43 +180,6 @@ export const [useStore, api] = create(
       setAmountSaved: (number) => {
         set({ amountSaved: number });
       },
-      // setSaveRecipe: (dice, name) => {
-      //   let currentRecipe = get().currentRecipe;
-      //   currentRecipe = {
-      //     ...currentRecipe,
-      //     [name]: dice,
-      //   };
-      //   set({ currentRecipe: name});
-      // },
-
-      // useEffect(() => {
-      //   const option = {
-      //     method: "GET",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       accept: "application/json",
-      //     },
-      //   };
-      //   fetch("http://localhost:3000/recipes/", option)
-      //     .then((response) => response.json())
-      //     .then((newRecipe) => {
-      //       setCreatedRecipes(newRecipe);
-      //       console.log(newRecipe[newRecipe.length - 1])
-      //       console.log(newRecipe)
-      //     });
-      //   }, [diceOne]);
-      // newRecipe: [],
-      // fetch: async (recipe) => {
-      //   const recipeUrl = "http://localhost:3000/recipes/";
-      //   const response = await fetch(recipeUrl);
-      //   set({ newRecipe: await response.json() });
-      // },
-      // savedRecipe: [],
-      // fetch: async (recipe) => {
-      //   const recipeUrl = "http://localhost:3000/recipes/";
-      //   const response = await fetch(recipeUrl);
-      //   set({ savedRecipe: await response.json() });
-      // },
     };
   })
 );

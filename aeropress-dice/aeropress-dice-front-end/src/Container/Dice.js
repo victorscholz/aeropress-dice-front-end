@@ -6,8 +6,7 @@ import { a } from "@react-spring/three";
 import { useStore } from "../Store/Store.js";
 import shallow from "zustand/shallow";
 import { TextureLoader } from "three";
-// import  DiceOne  from "./DiceOne.js";
-// import DiceTwo from "./DiceTwo.js"
+import { Html, RoundedBox, Box } from "drei";
 
 export default function Dice({ dice }) {
   const [rotation, setRotation] = useState();
@@ -360,6 +359,20 @@ export default function Dice({ dice }) {
     document.body.style.cursor = hover ? "pointer" : "auto";
   }, [hover]);
 
+  // const instructions = [
+  //   [
+  //     temperature1,
+  //     temperature2,
+  //     temperature3,
+  //     temperature4,
+  //     temperature5,
+  //     yourChoice,
+  //   ],
+  //   [ratio1, ratio2, ratio3, ratio4, ratio5, yourChoice],
+  // ];
+  // debugger;
+  // const envMap = useCubeTexture(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png'], { path: 'cube/' })
+
   const [
     temperature1,
     temperature2,
@@ -367,6 +380,11 @@ export default function Dice({ dice }) {
     temperature4,
     temperature5,
     yourChoice,
+    ratio1,
+    ratio2,
+    ratio3,
+    ratio4,
+    ratio5,
   ] = useLoader(TextureLoader, [
     "textures/temperature/75C.jpeg",
     "textures/temperature/80C.jpeg",
@@ -374,6 +392,11 @@ export default function Dice({ dice }) {
     "textures/temperature/90C.jpeg",
     "textures/temperature/95C.jpeg",
     "textures/your-choice.jpeg",
+    "textures/ratio/12-200.jpeg",
+    "textures/ratio/15-200.jpeg",
+    "textures/ratio/15-250.jpeg",
+    "textures/ratio/24-200.jpeg",
+    "textures/ratio/30-200.jpeg",
   ]);
 
   // const temperature2 = React.useMemo(
@@ -427,42 +450,46 @@ export default function Dice({ dice }) {
               scale={[0.41, 0.41, 0.41]}
             >
               <mesh castShadow receiveShadow>
-                <boxBufferGeometry attach="geometry" args={[1.6, 1.6, 1.6]} />
-                <a.meshPhysicalMaterial
-                  attachArray="material"
-                  map={temperature1}
-                  color={props.color}
+                <boxBufferGeometry
+                  attach="geometry"
+                  args={[1.6, 1.6, 1.6]}
+                  // radius={0.2}
+                  // smoothness={20}
                 />
-                <a.meshPhysicalMaterial
+                {/* <Html scaleFactor={10}>
+                  <div class="content">{diceOne}</div>
+                </Html> */}
+                <a.meshLambertMaterial
                   attachArray="material"
                   map={temperature2}
                   color={props.color}
                 />
-                <a.meshPhysicalMaterial
-                  attachArray="material"
-                  map={temperature3}
-                  color={props.color}
-                />
-                <a.meshPhysicalMaterial
-                  attachArray="material"
-                  map={temperature4}
-                  color={props.color}
-                />
-                <a.meshPhysicalMaterial
+                <a.meshLambertMaterial
                   attachArray="material"
                   map={temperature5}
                   color={props.color}
                 />
-                <a.meshPhysicalMaterial
+                <a.meshLambertMaterial
                   attachArray="material"
                   map={yourChoice}
                   color={props.color}
                 />
-              </mesh>
-              {/* <DiceOne/> */}
-              {/* <DiceTwo/> */}
-              <mesh castShadow receiveShadow>
-                <meshPhysicalMaterial attach="material" color="#fff" />
+                <a.meshLambertMaterial
+                  attachArray="material"
+                  map={temperature1}
+                  color={props.color}
+                />
+                <a.meshLambertMaterial
+                  attachArray="material"
+                  map={temperature3}
+                  color={props.color}
+                />
+                <a.meshLambertMaterial
+                  attachArray="material"
+                  map={temperature4}
+                  color={props.color}
+                />
+                {/* </RoundedBox> */}
               </mesh>
             </group>
           </group>

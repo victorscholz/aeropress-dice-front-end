@@ -3,7 +3,7 @@ import { Canvas } from "react-three-fiber";
 import { Physics, usePlane } from "use-cannon";
 import { useSpring, a } from "@react-spring/three";
 import { useStore /*useScore*/ } from "../Store/Store.js";
-import { OrbitControls, Text, HTML } from "drei";
+import { OrbitControls, Text, HTML, Stars } from "drei";
 import Recipe from "./Recipe";
 import Dice from "./Dice";
 
@@ -140,7 +140,6 @@ function Button() {
 // };
 
 function Save() {
-  // const dices = useStore((state) => state.dices);
   const diceOne = useStore((state) => state.diceOne);
   const diceTwo = useStore((state) => state.diceTwo);
   const diceThree = useStore((state) => state.diceThree);
@@ -151,11 +150,6 @@ function Save() {
   const aDices = [diceOne, diceTwo, diceThree, diceFour, diceFive];
   const bDices = aDices.join().replaceAll(",", "\n");
   const setSavePhase = useStore((state) => state.setSavePhase);
-  // const [recipe, changeRecipe] = useState();
-  // const setSaveRecipes = useStore((state) => state.setSaveRecipes)
-  // const setSaveRecipe = useStore((state) => state.setSaveRecipe);
-  // const saveRecipes = useStore((state) => state.saveRecipes)
-  // const currentRecipe = useStore((state) => state.currentRecipe);
   const [hover, set] = useState(false);
   const [createdRecipes, setCreatedRecipes] = useState([]);
   const props = useSpring({
@@ -216,7 +210,6 @@ function Save() {
       position={props.position}
       rotation={[-0.5 * Math.PI, 0, 0]}
     >
-      {/* {savePhase === "Save" && ( */}
       <Text
         textAlign="center"
         position={[0, 0.03, 0.03]}
@@ -226,17 +219,6 @@ function Save() {
       >
         Save Recipe
       </Text>
-      {/* )} */}
-      {/* {savePhase === "Saved" && (
-        <Text
-          textAlign="center"
-          position={[0, 0.03, 0.03]}
-          letterSpacing={-0.02}
-          fontSize={0.3}
-        >
-          Save Recipe
-        </Text>
-      )} */}
       <planeBufferGeometry attach="geometry" args={[2, 0.6]} />
       <meshPhysicalMaterial attach="material" color="black" />
     </a.mesh>
@@ -259,7 +241,7 @@ function Paper(props) {
 
 export default () => {
   const dices = useStore((state) => state.dices);
-  // const gamePhase = useStore((state) => state.gamePhase);
+
   return (
     <>
       <Canvas
@@ -292,6 +274,7 @@ export default () => {
             <Recipe />
             <Button />
             <Save />
+            {/* <Stars /> */}
             <Plane />
             <Paper />
             {dices.map((dice) => (
