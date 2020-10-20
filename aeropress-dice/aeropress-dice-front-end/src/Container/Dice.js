@@ -7,6 +7,7 @@ import { useStore } from "../Store/Store.js";
 import shallow from "zustand/shallow";
 import { TextureLoader } from "three";
 import { Html, RoundedBox, Box } from "drei";
+import { useTexture } from "@react-three/drei";
 
 export default function Dice({ dice }) {
   const [rotation, setRotation] = useState();
@@ -385,7 +386,7 @@ export default function Dice({ dice }) {
     ratio3,
     ratio4,
     ratio5,
-  ] = useLoader(TextureLoader, [
+  ] = useTexture([
     "textures/temperature/75C.jpeg",
     "textures/temperature/80C.jpeg",
     "textures/temperature/85C.jpeg",
@@ -434,62 +435,66 @@ export default function Dice({ dice }) {
         setDice(dice);
         e.stopPropagation();
       }}
-      castShadow
-      receiveShadow
+      // castShadow
+      // receiveShadow
       scale={[0.4, 0.4, 0.4]}
       ref={ref}
       dispose={null}
     >
-      <group castShadow receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
-        <group castShadow receiveShadow rotation={[Math.PI / 2, 0, 0]}>
-          <group castShadow receiveShadow position={[2.34, 0, 0]}>
+      <group rotation={[-Math.PI / 2, 0, 0]}>
+        <group rotation={[Math.PI / 2, 0, 0]}>
+          <group position={[2.34, 0, 0]}>
             <group
-              castShadow
-              receiveShadow
+              // castShadow
+              // receiveShadow
               position={[-2.33, -0.01, 0]}
               scale={[0.41, 0.41, 0.41]}
             >
               <mesh castShadow receiveShadow>
                 <boxBufferGeometry
+                  // castShadow
+                  // receiveShadow
                   attach="geometry"
-                  args={[1.6, 1.6, 1.6]}
+                  args={[2.11, 2.11, 2.11]}
                   // radius={0.2}
-                  // smoothness={20}
+                  // smoothness={15}
                 />
-                {/* <Html scaleFactor={10}>
+                  {/* <Html scaleFactor={10}>
                   <div class="content">{diceOne}</div>
                 </Html> */}
-                <a.meshLambertMaterial
-                  attachArray="material"
-                  map={temperature2}
-                  color={props.color}
-                />
-                <a.meshLambertMaterial
-                  attachArray="material"
-                  map={temperature5}
-                  color={props.color}
-                />
-                <a.meshLambertMaterial
-                  attachArray="material"
-                  map={yourChoice}
-                  color={props.color}
-                />
-                <a.meshLambertMaterial
-                  attachArray="material"
-                  map={temperature1}
-                  color={props.color}
-                />
-                <a.meshLambertMaterial
-                  attachArray="material"
-                  map={temperature3}
-                  color={props.color}
-                />
-                <a.meshLambertMaterial
-                  attachArray="material"
-                  map={temperature4}
-                  color={props.color}
-                />
-                {/* </RoundedBox> */}
+                  <a.meshLambertMaterial
+                    attachArray="material"
+                    map={temperature2}
+                    color={props.color}
+                  />
+                  {/* <texture attach="map" map={temperature2} /> */}
+                  {/* </a.meshStandardMaterial> */}
+                  <a.meshLambertMaterial
+                    attachArray="material"
+                    map={temperature5}
+                    color={props.color}
+                  />
+                  <a.meshLambertMaterial
+                    attachArray="material"
+                    map={yourChoice}
+                    color={props.color}
+                  />
+                  <a.meshLambertMaterial
+                    attachArray="material"
+                    map={temperature1}
+                    color={props.color}
+                  />
+                  <a.meshLambertMaterial
+                    attachArray="material"
+                    map={temperature3}
+                    color={props.color}
+                  />
+                  <a.meshLambertMaterial
+                    attachArray="material"
+                    map={temperature4}
+                    color={props.color}
+                  />
+                {/* </boxBufferGeometry> */}
               </mesh>
             </group>
           </group>

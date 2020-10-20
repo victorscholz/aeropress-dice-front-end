@@ -1,11 +1,13 @@
-import React, { Suspense, useState, useEffect } from "react";
-import { Canvas } from "react-three-fiber";
+import React, { Suspense, useState, useEffect, useRef } from "react";
+import { Canvas, useThree, useLoader } from "react-three-fiber";
 import { Physics, usePlane } from "use-cannon";
 import { useSpring, a } from "@react-spring/three";
 import { useStore /*useScore*/ } from "../Store/Store.js";
-import { OrbitControls, Text, HTML, Stars } from "drei";
+import { OrbitControls, Text, HTML, Stars, Sky } from "drei";
 import Recipe from "./Recipe";
 import Dice from "./Dice";
+// import { CubeTextureLoader, TextureLoader } from "three";
+// import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 function Plane(props) {
   const [ref] = usePlane(() => ({
@@ -239,6 +241,65 @@ function Paper(props) {
   );
 }
 
+// function SkyBox() {
+//   const { scene } = useThree();
+//   const loader = new CubeTextureLoader();
+//   // The CubeTextureLoader load method takes an array of urls representing all 6 sides of the cube.
+//   const texture = loader.load([
+//     "textures/px.png",
+//     "textures/nx.png",
+//     "textures/py.png",
+//     "textures/ny.png",
+//     "textures/pz.png",
+//     "textures/nz.png",
+//   ]);
+//   // Set the scene background property to the resulting texture.
+//   scene.background = texture;
+//   return null;
+// }
+
+// function Table() {
+//   const group = useRef();
+//   // const material = React.useMemo(
+//   //   () => new TextureLoader().load("assets/uploads_files_1875799_Textures.rar"),
+//   //   []
+//   // );
+//   const tableMaterial = React.useMemo(
+//     () => new TextureLoader().load("assets/workshop_table_industrial/textures/wood_diffuse.jpeg"),
+//     []
+//   );
+//   const { nodes, materials } = useLoader(
+//     GLTFLoader,
+//     // "assets/uploads_files_1875799_abciuppa_table_w_m_01.gltf"
+//     "assets/workshop_table_industrial/scene.gltf"
+//   );
+//   console.log(nodes);
+//   console.log(materials)
+//   return (
+//     <group ref={group}>
+//       <mesh visible geometry={nodes.Box001_wood_0.geometry}>
+//         <meshStandardMaterial
+//           attach="material"
+//           // map={materials}
+//           color="white"
+//           // roughness={0.3}
+//           // metalness={0.3}
+//         />
+//       </mesh>
+//       {/* <mesh material={materials.SceneRoot} geometry={nodes.Plane001.geometry} />
+//       <mesh
+//         material={materials.SceneRoot}
+//         geometry={nodes.Plane005_Plane011.geometry}
+//       />
+//       <mesh material={materials.SceneRoot} geometry={nodes.Plane006.geometry} />
+//       <mesh
+//         material={materials.SceneRoot}
+//         geometry={nodes.Plane_Plane008.geometry}
+//       /> */}
+//     </group>
+//   );
+// }
+
 export default () => {
   const dices = useStore((state) => state.dices);
 
@@ -251,6 +312,7 @@ export default () => {
         shadowMap
       >
         <color attach="background" args={["lightblue"]} /*#add8e6*/ />
+        {/* <SkyBox /> */}
         <hemisphereLight intensity={0.1} />
         <directionalLight
           position={[-8, 20, 10]}
@@ -275,7 +337,9 @@ export default () => {
             <Button />
             <Save />
             {/* <Stars /> */}
+            {/* <Sky /> */}
             <Plane />
+            {/* <Table /> */}
             <Paper />
             {dices.map((dice) => (
               <Dice key={dice.id} dice={dice} />
