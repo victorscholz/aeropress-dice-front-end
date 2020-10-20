@@ -1,7 +1,5 @@
 import create from "zustand";
 import { devtools } from "zustand/middleware";
-import { TextureLoader } from "three";
-import { useLoader } from "react-three-fiber";
 
 const initial = {
   one: 0,

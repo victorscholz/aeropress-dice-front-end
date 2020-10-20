@@ -1,9 +1,10 @@
 import React, { Suspense, useState, useEffect, useRef } from "react";
-import { Canvas, useThree, useLoader } from "react-three-fiber";
+import { Canvas /*useThree, useLoader*/ } from "react-three-fiber";
 import { Physics, usePlane } from "use-cannon";
 import { useSpring, a } from "@react-spring/three";
 import { useStore /*useScore*/ } from "../Store/Store.js";
-import { OrbitControls, Text, HTML, Stars, Sky } from "drei";
+import { OrbitControls, Text, HTML /*Stars, Sky*/ } from "drei";
+import { Loader, useGLTF } from "@react-three/drei";
 import Recipe from "./Recipe";
 import Dice from "./Dice";
 // import { CubeTextureLoader, TextureLoader } from "three";
@@ -115,7 +116,7 @@ function Button() {
         </Text>
       )}
       <planeBufferGeometry attach="geometry" args={[2, 0.6]} />
-      <meshPhysicalMaterial attach="material" color="black" />
+      <meshPhysicalMaterial attach="material" color="saddlebrown" />
     </a.mesh>
   );
 }
@@ -222,7 +223,7 @@ function Save() {
         Save Recipe
       </Text>
       <planeBufferGeometry attach="geometry" args={[2, 0.6]} />
-      <meshPhysicalMaterial attach="material" color="black" />
+      <meshPhysicalMaterial attach="material" color="saddlebrown" />
     </a.mesh>
   );
 }
@@ -258,47 +259,41 @@ function Paper(props) {
 //   return null;
 // }
 
-// function Table() {
-//   const group = useRef();
-//   // const material = React.useMemo(
-//   //   () => new TextureLoader().load("assets/uploads_files_1875799_Textures.rar"),
-//   //   []
-//   // );
-//   const tableMaterial = React.useMemo(
-//     () => new TextureLoader().load("assets/workshop_table_industrial/textures/wood_diffuse.jpeg"),
-//     []
-//   );
-//   const { nodes, materials } = useLoader(
-//     GLTFLoader,
-//     // "assets/uploads_files_1875799_abciuppa_table_w_m_01.gltf"
-//     "assets/workshop_table_industrial/scene.gltf"
-//   );
-//   console.log(nodes);
-//   console.log(materials)
-//   return (
-//     <group ref={group}>
-//       <mesh visible geometry={nodes.Box001_wood_0.geometry}>
-//         <meshStandardMaterial
-//           attach="material"
-//           // map={materials}
-//           color="white"
-//           // roughness={0.3}
-//           // metalness={0.3}
-//         />
-//       </mesh>
-//       {/* <mesh material={materials.SceneRoot} geometry={nodes.Plane001.geometry} />
-//       <mesh
-//         material={materials.SceneRoot}
-//         geometry={nodes.Plane005_Plane011.geometry}
-//       />
-//       <mesh material={materials.SceneRoot} geometry={nodes.Plane006.geometry} />
-//       <mesh
-//         material={materials.SceneRoot}
-//         geometry={nodes.Plane_Plane008.geometry}
-//       /> */}
-//     </group>
-//   );
-// }
+function Coffee() {
+  const { nodes, materials } = useGLTF("assets/coffee_mug/scene.gltf", true);
+
+  return (
+    <group position={[0.5, -19, 2]} scale={[0.75, 0.75, 0.75]}>
+      <mesh
+        material={materials["Coffee"]}
+        geometry={nodes.Mug1_Coffee_0.geometry}
+      />
+      <mesh
+        material={materials["material"]}
+        geometry={nodes.Mug1_Mug_0.geometry}
+      />
+    </group>
+  );
+}
+
+function Table() {
+  const { nodes, materials } = useGLTF("assets/coffee_table/scene.gltf", true);
+
+  console.log(nodes);
+  console.log(materials);
+  return (
+    <group
+      position={[0.5, -4.85, -0.3]}
+      scale={[25, 25, 25]}
+      rotation={[-1.571, 0, 0]}
+    >
+      <mesh
+        material={materials["Fjaellbo"]}
+        geometry={nodes.FjaellboBodyGameMergedLowPoly_Fjaellbo_0.geometry}
+      />
+    </group>
+  );
+}
 
 export default () => {
   const dices = useStore((state) => state.dices);
@@ -321,12 +316,12 @@ export default () => {
         />
         <OrbitControls />
         <Physics defaultContactMaterial={{ contactEquationStiffness: 1e2 }}>
-          <Suspense fallback={<HTML>Loading...</HTML>}>
+          <Suspense fallback={null}>
             <Text
               position={[2.6, 0.02, -3.6]}
               font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
               letterSpacing={-0.02}
-              color="black"
+              color="white"
               rotation={[-0.5 * Math.PI, 0, 0]}
               fontSize={0.8}
             >
@@ -339,7 +334,8 @@ export default () => {
             {/* <Stars /> */}
             {/* <Sky /> */}
             <Plane />
-            {/* <Table /> */}
+            <Coffee />
+            <Table />
             <Paper />
             {dices.map((dice) => (
               <Dice key={dice.id} dice={dice} />
@@ -347,6 +343,7 @@ export default () => {
           </Suspense>
         </Physics>
       </Canvas>
+      <Loader />
     </>
   );
 };

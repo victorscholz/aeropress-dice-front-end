@@ -1,12 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useFrame, useLoader } from "react-three-fiber";
+import { useFrame /*useLoader*/ } from "react-three-fiber";
 import { useBox } from "use-cannon";
 import { useSpring } from "@react-spring/core";
 import { a } from "@react-spring/three";
 import { useStore } from "../Store/Store.js";
 import shallow from "zustand/shallow";
-import { TextureLoader } from "three";
-import { Html, RoundedBox, Box } from "drei";
+// import { TextureLoader } from "three";
+// import { Html, RoundedBox, Box } from "drei";
 import { useTexture } from "@react-three/drei";
 
 export default function Dice({ dice }) {
@@ -443,11 +443,11 @@ export default function Dice({ dice }) {
     >
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
-          <group position={[2.34, 0, 0]}>
+          <group position={[2.34, 0.04, 0]}>
             <group
               // castShadow
               // receiveShadow
-              position={[-2.33, -0.01, 0]}
+              position={[-2.33, 0.04, 0]}
               scale={[0.41, 0.41, 0.41]}
             >
               <mesh castShadow receiveShadow>
@@ -459,42 +459,42 @@ export default function Dice({ dice }) {
                   // radius={0.2}
                   // smoothness={15}
                 />
-                  {/* <Html scaleFactor={10}>
+                {/* <Html scaleFactor={10}>
                   <div class="content">{diceOne}</div>
                 </Html> */}
-                  <a.meshLambertMaterial
-                    attachArray="material"
-                    map={temperature2}
-                    color={props.color}
-                  />
-                  {/* <texture attach="map" map={temperature2} /> */}
-                  {/* </a.meshStandardMaterial> */}
-                  <a.meshLambertMaterial
-                    attachArray="material"
-                    map={temperature5}
-                    color={props.color}
-                  />
-                  <a.meshLambertMaterial
-                    attachArray="material"
-                    map={yourChoice}
-                    color={props.color}
-                  />
-                  <a.meshLambertMaterial
-                    attachArray="material"
-                    map={temperature1}
-                    color={props.color}
-                  />
-                  <a.meshLambertMaterial
-                    attachArray="material"
-                    map={temperature3}
-                    color={props.color}
-                  />
-                  <a.meshLambertMaterial
-                    attachArray="material"
-                    map={temperature4}
-                    color={props.color}
-                  />
-                {/* </boxBufferGeometry> */}
+                <a.meshLambertMaterial
+                  attachArray="material"
+                  map={temperature2}
+                  color={props.color}
+                />
+                {/* <texture attach="map" map={temperature2} /> */}
+                {/* </a.meshStandardMaterial> */}
+                <a.meshLambertMaterial
+                  attachArray="material"
+                  map={temperature5}
+                  color={props.color}
+                />
+                <a.meshLambertMaterial
+                  attachArray="material"
+                  map={yourChoice}
+                  color={props.color}
+                />
+                <a.meshLambertMaterial
+                  attachArray="material"
+                  map={temperature1}
+                  color={props.color}
+                />
+                <a.meshLambertMaterial
+                  attachArray="material"
+                  map={temperature3}
+                  color={props.color}
+                />
+                <a.meshLambertMaterial
+                  attachArray="material"
+                  map={temperature4}
+                  color={props.color}
+                />
+                {/* </RoundedBox> */}
               </mesh>
             </group>
           </group>
