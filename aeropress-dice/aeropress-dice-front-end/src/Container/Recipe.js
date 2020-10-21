@@ -211,7 +211,7 @@ const Recipe = () => {
         name="first"
         // currentScore={savePhase}
         // if state of store value ? true, render else null
-        // possibleScore={currentRecipes[0]}
+        // possibleScore={currentRecipes}
         possibleScore={savePhase}
         // savePhase={savePhase}
         // currentRecipe={currentRecipe}
