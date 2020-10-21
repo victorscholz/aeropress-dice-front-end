@@ -374,18 +374,55 @@ export default function Dice({ dice }) {
   // debugger;
   // const envMap = useCubeTexture(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png'], { path: 'cube/' })
 
+  // const temperature80C = React.useMemo(
+  //   () => new TextureLoader().load("textures/temperature/80C.jpeg"),
+  //   ["textures/temperature/80C.jpeg"]
+  // );
+  // const temperature85C = React.useMemo(
+  //   () => new TextureLoader().load("textures/temperature/85C.jpeg"),
+  //   []
+  // );
+  // const temperature90C = React.useMemo(
+  //   () => new TextureLoader().load("textures/temperature/90C.jpeg"),
+  //   []
+  // );
+  // const temperature95C = React.useMemo(
+  //   () => new TextureLoader().load("textures/temperature/95C.jpeg"),
+  //   []
+  // );
+  // const yourChoice = React.useMemo(
+  //   () => new TextureLoader().load("textures/your-choice.jpeg"),
+  //   []
+  // );
+
   const [
-    temperature1,
-    temperature2,
-    temperature3,
-    temperature4,
-    temperature5,
+    temperature75C,
+    temperature80C,
+    temperature85C,
+    temperature90C,
+    temperature95C,
     yourChoice,
-    ratio1,
-    ratio2,
-    ratio3,
-    ratio4,
-    ratio5,
+    ratio12200,
+    ratio15200,
+    ratio15250,
+    ratio24200,
+    ratio30200,
+    stirCompass,
+    noStir,
+    stirOnce,
+    stirTwice,
+    twoDirection,
+    coarse4,
+    fine60,
+    medFine90,
+    med120,
+    veryFine30,
+    inverted3030,
+    inverted3060,
+    invertedNoBloom,
+    standard3030,
+    standard3060,
+    standardNoBloom,
   ] = useTexture([
     "textures/temperature/75C.jpeg",
     "textures/temperature/80C.jpeg",
@@ -398,28 +435,23 @@ export default function Dice({ dice }) {
     "textures/ratio/15-250.jpeg",
     "textures/ratio/24-200.jpeg",
     "textures/ratio/30-200.jpeg",
+    "textures/stir/compass.jpeg",
+    "textures/stir/no-stir.jpeg",
+    "textures/stir/stir1.jpeg",
+    "textures/stir/stir2.jpeg",
+    "textures/stir/two-direction.jpeg",
+    "textures/grind/coarse-4.jpeg",
+    "textures/grind/fine-60.jpeg",
+    "textures/grind/med-fine-90.jpeg",
+    "textures/grind/medium-120.jpeg",
+    "textures/grind/very-fine-30.jpeg",
+    "textures/bloom/inverted-30-30.jpeg",
+    "textures/bloom/inverted-30-60.jpeg",
+    "textures/bloom/inverted-no-bloom.jpeg",
+    "textures/bloom/standard-30-30.jpeg",
+    "textures/bloom/standard-30-60.jpeg",
+    "textures/bloom/standard-no-bloom.jpeg",
   ]);
-
-  // const temperature2 = React.useMemo(
-  //   () => new TextureLoader().load("textures/temperature/80C.jpeg"),
-  //   ["textures/temperature/80C.jpeg"]
-  // );
-  // const temperature3 = React.useMemo(
-  //   () => new TextureLoader().load("textures/temperature/85C.jpeg"),
-  //   []
-  // );
-  // const temperature4 = React.useMemo(
-  //   () => new TextureLoader().load("textures/temperature/90C.jpeg"),
-  //   []
-  // );
-  // const temperature5 = React.useMemo(
-  //   () => new TextureLoader().load("textures/temperature/95C.jpeg"),
-  //   []
-  // );
-  // const yourChoice = React.useMemo(
-  //   () => new TextureLoader().load("textures/your-choice.jpeg"),
-  //   []
-  // );
 
   return (
     <a.group
@@ -450,7 +482,7 @@ export default function Dice({ dice }) {
               position={[-2.33, 0.04, 0]}
               scale={[0.41, 0.41, 0.41]}
             >
-              <mesh castShadow receiveShadow>
+              <mesh castShadow /*receiveShadow*/>
                 <boxBufferGeometry
                   // castShadow
                   // receiveShadow
@@ -462,36 +494,57 @@ export default function Dice({ dice }) {
                 {/* <Html scaleFactor={10}>
                   <div class="content">{diceOne}</div>
                 </Html> */}
-                <a.meshLambertMaterial
+                <a.meshStandardMaterial
                   attachArray="material"
-                  map={temperature2}
+                  // map={temperature80C}
+                  // map={ratio15200}
+                  map={stirOnce}
+                  // map={fine60}
+                  // map={inverted3060}
                   color={props.color}
                 />
-                {/* <texture attach="map" map={temperature2} /> */}
+                {/* <texture attach="map" map={temperature80C} /> */}
                 {/* </a.meshStandardMaterial> */}
-                <a.meshLambertMaterial
+                <a.meshStandardMaterial
                   attachArray="material"
-                  map={temperature5}
+                  // map={temperature95C}
+                  // map={ratio30200}
+                  map={stirTwice}
+                  // map={veryFine30}
+                  // map={standard3060}
                   color={props.color}
                 />
-                <a.meshLambertMaterial
+                <a.meshStandardMaterial
                   attachArray="material"
                   map={yourChoice}
+                  // map={standardNoBloom}
                   color={props.color}
                 />
-                <a.meshLambertMaterial
+                <a.meshStandardMaterial
                   attachArray="material"
-                  map={temperature1}
+                  // map={temperature75C}
+                  // map={ratio12200}
+                  map={noStir}
+                  // map={coarse4}
+                  // map={inverted3030}
                   color={props.color}
                 />
-                <a.meshLambertMaterial
+                <a.meshStandardMaterial
                   attachArray="material"
-                  map={temperature3}
+                  // map={temperature85C}
+                  // map={ratio15250}
+                  map={stirCompass}
+                  // map={medFine90}
+                  // map={invertedNoBloom}
                   color={props.color}
                 />
-                <a.meshLambertMaterial
+                <a.meshStandardMaterial
                   attachArray="material"
-                  map={temperature4}
+                  // map={temperature90C}
+                  // map={ratio24200}
+                  map={twoDirection}
+                  // map={med120}
+                  // map={standard3030}
                   color={props.color}
                 />
                 {/* </RoundedBox> */}

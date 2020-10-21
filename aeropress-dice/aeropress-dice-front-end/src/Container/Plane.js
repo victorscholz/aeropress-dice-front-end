@@ -1,13 +1,14 @@
 import React, { Suspense, useState, useEffect, useRef } from "react";
-import { Canvas /*useThree, useLoader*/ } from "react-three-fiber";
+import { Canvas, useThree, useLoader } from "react-three-fiber";
 import { Physics, usePlane } from "use-cannon";
 import { useSpring, a } from "@react-spring/three";
 import { useStore /*useScore*/ } from "../Store/Store.js";
-import { OrbitControls, Text, HTML /*Stars, Sky*/ } from "drei";
+import { OrbitControls, Text /*HTML, Stars, Sky*/ } from "drei";
 import { Loader, useGLTF } from "@react-three/drei";
 import Recipe from "./Recipe";
 import Dice from "./Dice";
-// import { CubeTextureLoader, TextureLoader } from "three";
+import { CubeTextureLoader, TextureLoader } from "three";
+
 // import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 function Plane(props) {
@@ -20,7 +21,7 @@ function Plane(props) {
     <mesh
       ref={ref}
       receiveShadow
-      position={[0, -1, 0]}
+      position={[0, 0.04, 0]}
       rotation={[-0.5 * Math.PI, 0, 0]}
     >
       <planeBufferGeometry attach="geometry" args={[100, 100]} />
@@ -40,7 +41,7 @@ function Button() {
   const [hover, set] = useState(false);
 
   const props = useSpring({
-    position: hover ? [1.1, 0.1, 2.9] : [1.1, 0, 2.9],
+    position: hover ? [1.1, 0.1, 2.9] : [1.1, 0.01, 2.9],
   });
 
   useEffect(() => {
@@ -87,7 +88,7 @@ function Button() {
           setStartedGame(true);
         }
       }}
-      receiveShadow
+      // receiveShadow
       castShadow
       position={props.position}
       rotation={[-0.5 * Math.PI, 0, 0]}
@@ -156,7 +157,7 @@ function Save() {
   const [hover, set] = useState(false);
   const [createdRecipes, setCreatedRecipes] = useState([]);
   const props = useSpring({
-    position: hover ? [3.9, 0.1, 2.9] : [3.9, 0, 2.9],
+    position: hover ? [3.9, 0.1, 2.9] : [3.9, 0.01, 2.9],
   });
 
   useEffect(() => {
@@ -208,7 +209,7 @@ function Save() {
         // }
         // save recipe
       }}
-      receiveShadow
+      // receiveShadow
       castShadow
       position={props.position}
       rotation={[-0.5 * Math.PI, 0, 0]}
@@ -231,7 +232,7 @@ function Save() {
 function Paper(props) {
   return (
     <mesh
-      receiveShadow
+      // receiveShadow
       castShadow
       position={[-3.2, 0.01, -0.3]}
       rotation={[-0.5 * Math.PI, 0, 0]}
@@ -242,35 +243,41 @@ function Paper(props) {
   );
 }
 
-// function SkyBox() {
-//   const { scene } = useThree();
-//   const loader = new CubeTextureLoader();
-//   // The CubeTextureLoader load method takes an array of urls representing all 6 sides of the cube.
-//   const texture = loader.load([
-//     "textures/px.png",
-//     "textures/nx.png",
-//     "textures/py.png",
-//     "textures/ny.png",
-//     "textures/pz.png",
-//     "textures/nz.png",
-//   ]);
-//   // Set the scene background property to the resulting texture.
-//   scene.background = texture;
-//   return null;
-// }
+function SkyBox() {
+  const { scene } = useThree();
+  const loader = new CubeTextureLoader();
+  // The CubeTextureLoader load method takes an array of urls representing all 6 sides of the cube.
+  const texture = loader.load([
+    "textures/px.jpeg",
+    "textures/nx.jpeg",
+    "textures/py.jpeg",
+    "textures/ny.jpeg",
+    "textures/pz.jpeg",
+    "textures/nz.jpeg",
+  ]);
+  // Set the scene background property to the resulting texture.
+  scene.background = texture;
+  return null;
+}
 
 function Coffee() {
   const { nodes, materials } = useGLTF("assets/coffee_mug/scene.gltf", true);
 
   return (
-    <group position={[0.5, -19, 2]} scale={[0.75, 0.75, 0.75]}>
+    <group
+      position={[0.5, -19, 2]}
+      scale={[0.75, 0.75, 0.75]}
+      castShadow={true}
+    >
       <mesh
         material={materials["Coffee"]}
         geometry={nodes.Mug1_Coffee_0.geometry}
+        castShadow={true}
       />
       <mesh
         material={materials["material"]}
         geometry={nodes.Mug1_Mug_0.geometry}
+        castShadow={true}
       />
     </group>
   );
@@ -279,8 +286,6 @@ function Coffee() {
 function Table() {
   const { nodes, materials } = useGLTF("assets/coffee_table/scene.gltf", true);
 
-  console.log(nodes);
-  console.log(materials);
   return (
     <group
       position={[0.5, -4.85, -0.3]}
@@ -301,17 +306,28 @@ export default () => {
   return (
     <>
       <Canvas
+        className="canvas"
         style={{ zIndex: 1 }}
         camera={{ position: [0, 20, 10], fov: 30 }}
         colorManagement
         shadowMap
       >
-        <color attach="background" args={["lightblue"]} /*#add8e6*/ />
-        {/* <SkyBox /> */}
-        <hemisphereLight intensity={0.1} />
+        <color attach="background" args={["gray"]} /*#add8e6*/ />
+        <fog attach="fog" args={["#bcbec0", 10, 90]} />
+        <SkyBox />
+        <hemisphereLight intensity={0.2} />
         <directionalLight
+          // intensity={0.6}
           position={[-8, 20, 10]}
-          shadow-camera-right={6}
+          // shadow-camera-right={6} // original
+          // shadow-camera-near={0.5} // default
+          // shadow-camera-far={500} // default
+          shadow-camera-top={-8.1}
+          shadow-camera-right={8.1}
+          shadow-camera-left={-8.1}
+          shadow-camera-bottom={8.1}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024} 
           castShadow
         />
         <OrbitControls />
@@ -324,6 +340,7 @@ export default () => {
               color="white"
               rotation={[-0.5 * Math.PI, 0, 0]}
               fontSize={0.8}
+              castShadow
             >
               Aeropress Dice
             </Text>
@@ -332,10 +349,9 @@ export default () => {
             <Button />
             <Save />
             {/* <Stars /> */}
-            {/* <Sky /> */}
-            <Plane />
-            <Coffee />
+            <Coffee castShadow />
             <Table />
+            <Plane />
             <Paper />
             {dices.map((dice) => (
               <Dice key={dice.id} dice={dice} />
