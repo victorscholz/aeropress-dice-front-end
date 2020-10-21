@@ -35,7 +35,7 @@ const Recipe = () => {
     fetch("http://localhost:3000/recipes/", option)
       .then((response) => response.json())
       .then((currentRecipes) => {
-        console.log(currentRecipes);
+        // console.log(currentRecipes);
         setCurrentRecipes(currentRecipes);
         // console.log(currentRecipes[currentRecipes.length - 1])
       });
