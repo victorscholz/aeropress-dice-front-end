@@ -21,7 +21,7 @@ function Plane(props) {
     <mesh
       ref={ref}
       receiveShadow
-      position={[0, -1, 0]}
+      position={[0, 0.04, 0]}
       rotation={[-0.5 * Math.PI, 0, 0]}
     >
       <planeBufferGeometry attach="geometry" args={[100, 100]} />
@@ -319,17 +319,16 @@ export default () => {
         <directionalLight
           // intensity={0.6}
           position={[-8, 20, 10]}
-          // shadow-camera-right={6}
-          // shadow-camera-near={-5} // default
-          // shadow-camera-far={50} // default
-          shadow-camera-top={-10} // default
-          shadow-camera-right={10} // default
-          shadow-camera-left={-10} // default
-          shadow-camera-bottom={10} // default
+          // shadow-camera-right={6} // original
+          // shadow-camera-near={0.5} // default
+          // shadow-camera-far={500} // default
+          shadow-camera-top={-8.1}
+          shadow-camera-right={8.1}
+          shadow-camera-left={-8.1}
+          shadow-camera-bottom={8.1}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024} 
           castShadow
-
-          // shadow-mapSize-width={5000}
-          // shadow-mapSize-height={5000}
         />
         <OrbitControls />
         <Physics defaultContactMaterial={{ contactEquationStiffness: 1e2 }}>
@@ -341,6 +340,7 @@ export default () => {
               color="white"
               rotation={[-0.5 * Math.PI, 0, 0]}
               fontSize={0.8}
+              castShadow
             >
               Aeropress Dice
             </Text>
