@@ -1,4 +1,5 @@
-![Screen Shot 2020-10-20 at 4 22 34 PM](https://user-images.githubusercontent.com/64430496/96640088-ab47ea00-12f0-11eb-9851-69652cb2e45b.png)
+![Screen Shot 2020-10-22 at 1 01 06 PM](https://user-images.githubusercontent.com/64430496/96905712-d0f6ff80-1466-11eb-99ab-167f7f6dbb4c.png)
+
 
 Welcome to Aeropress Dice!
 
