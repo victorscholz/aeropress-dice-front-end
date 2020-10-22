@@ -55,10 +55,10 @@ export default function Dice({ dice }) {
     }
   }, [
     diceNumber,
-    diceNumberTwo,
-    diceNumberThree,
-    diceNumberFour,
-    diceNumberFive,
+    // diceNumberTwo,
+    // diceNumberThree,
+    // diceNumberFour,
+    // diceNumberFive,
     dice.id,
     setDiceOne,
     setDiceTwo,

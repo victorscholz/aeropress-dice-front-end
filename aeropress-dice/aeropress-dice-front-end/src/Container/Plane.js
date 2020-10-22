@@ -8,6 +8,9 @@ import { Loader, useGLTF } from "@react-three/drei";
 import Recipe from "./Recipe";
 import Dice from "./Dice";
 import { CubeTextureLoader } from "three";
+import useSound from "use-sound";
+import diceSound from "../Sound/dice_roll.wav";
+import writing from "../Sound/writing.wav";
 
 // Creates the ground in my scene
 function Plane(props) {
@@ -31,6 +34,8 @@ function Plane(props) {
 
 // Creates the roll button
 function Button() {
+  const [playbackRate, setPlaybackRate] = React.useState(0.55);
+  const [play] = useSound(diceSound, { playbackRate, interrupt: true });
   const setReroll = useStore((state) => state.setReroll);
   const setAmountRolled = useStore((state) => state.setAmountRolled);
   const amountRolled = useStore((state) => state.amountRolled);
@@ -83,6 +88,10 @@ function Button() {
       }}
       onClick={() => {
         setGamePhase("Roll Dice");
+        {
+          setPlaybackRate(playbackRate);
+          play(diceSound);
+        }
         if (amountRolled <= 30) {
           reroll(dices, setReroll, amountRolled, setAmountRolled);
           setStartedGame(true);
@@ -144,6 +153,8 @@ function Button() {
 
 // Creates my save button
 function Save() {
+  // const [writebackRate, setWritebackRate] = React.useState(0.1)
+  const [write] = useSound(writing, { volume: 0.4, interrupt: true });
   const diceOne = useStore((state) => state.diceOne);
   const diceTwo = useStore((state) => state.diceTwo);
   const diceThree = useStore((state) => state.diceThree);
@@ -192,6 +203,10 @@ function Save() {
         set(false);
       }}
       onClick={() => {
+        {
+          // setWritebackRate(writebackRate)
+          write(writing);
+        }
         // e.stopPropagation();
         setCreatedRecipes(createdRecipes);
         // setSavePhase("Saved");
@@ -265,10 +280,7 @@ function Coffee() {
   const { nodes, materials } = useGLTF("assets/coffee_mug/scene.gltf", true);
 
   return (
-    <group
-      position={[0.5, -19, 2]}
-      scale={[0.75, 0.75, 0.75]}
-    >
+    <group position={[0.5, -19, 2]} scale={[0.75, 0.75, 0.75]}>
       <mesh
         material={materials["Coffee"]}
         geometry={nodes.Mug1_Coffee_0.geometry}
