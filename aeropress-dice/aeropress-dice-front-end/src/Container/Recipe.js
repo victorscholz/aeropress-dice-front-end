@@ -1,19 +1,10 @@
-// import React from "react";
-// import RecipeCard from "../Components/RecipeCard.js";
 import React, { useState, useEffect } from "react";
-import { Text, Plane, /*useAspect*/ } from "drei";
+import { Text, Plane } from "drei";
 import { useSpring } from "@react-spring/core";
 import { a } from "@react-spring/three";
-// import { useFrame, useThree } from "react-three-fiber";
 import { useScore, useStore } from "../Store/Store.js";
-// import { Flex, Box, useReflow } from "@react-three/flex";
 
-// function Reflower() {
-//   const reflow = useReflow();
-//   useFrame(reflow);
-//   return null;
-// }
-
+// Where my recipe steps live, are directly connected to state of each dice
 const Recipe = () => {
   const { savePhase } = useStore();
   const diceOne = useStore((state) => state.diceOne);
@@ -35,42 +26,14 @@ const Recipe = () => {
     fetch("http://localhost:3000/recipes/", option)
       .then((response) => response.json())
       .then((currentRecipes) => {
-        // console.log(currentRecipes);
+        console.log(currentRecipes);
         setCurrentRecipes(currentRecipes);
         // console.log(currentRecipes[currentRecipes.length - 1])
       });
   }, [diceOne]);
 
-  // console.log(currentRecipes[0])
-
-  // console.log(vpWidth, vpHeight)
-  // const handleReflow = useCallback(
-  //   (w: number, h: number) => {
-  //     onChangePages(h / vpHeight);
-  //     // console.log({ h, vpHeight, pages: h / vpHeight });
-  //   },
-  //   [onChangePages, vpHeight]
-  // );
-
   return (
     <group position={[0, -0.17, -0.21]}>
-      {/* <Flex
-        // size={[300, 300, 300]}
-        flexDirection="column"
-        size={[vpWidth, vpHeight, 0]}
-        // onReflow={handleReflow}
-      > */}
-      {/* <Reflower /> */}
-      {/* <Box
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="center"
-          flexWrap="wrap"
-          width="100%"
-          // marginLeft={0.3}
-          // marginTop={0.3}
-          // marginBottom={0.1}
-        > */}
       <Text
         rotation={[-0.5 * Math.PI, 0, 0]}
         position={[-3.9, 0.22, -3]}
@@ -155,38 +118,6 @@ const Recipe = () => {
         // currentScore={currentScores.five}
         possibleScore={diceFive}
       />
-      {/* <Text
-        rotation={[-0.5 * Math.PI, 0, 0]}
-        position={[-5.3, 0.22, -1.1]}
-        fontSize={0.2}
-        color="black"
-      >
-        Six
-      </Text>
-      <ScoreCell
-        positionText={[-3, 0.22, -1.1]}
-        positionPlane={[-2.89, 0.2, -1.0]}
-        name="six"
-        currentScore={currentScores.six}
-        possibleScore={possibleScores.six}
-      />
-
-      <Text
-        rotation={[-0.5 * Math.PI, 0, 0]}
-        position={[-5.3, 0.22, -0.4]}
-        fontSize={0.2}
-        color="black"
-      >
-        Sum
-      </Text>
-      <Text
-        rotation={[-0.5 * Math.PI, 0, 0]}
-        position={[-3, 0.22, -0.4]}
-        fontSize={0.2}
-        color="black"
-      >
-        {totalScores.totalUpper}
-      </Text>  */}
       ///////////////////////////////////////// Saved Recipe Section
       <Text
         rotation={[-0.5 * Math.PI, 0, 0]}
@@ -318,6 +249,7 @@ const Recipe = () => {
   );
 };
 
+// Helper function for rendering dice rolls
 function ScoreCell({
   name,
   possibleScore,
@@ -377,33 +309,6 @@ function ScoreCell({
       >
         {possibleScore && possibleScore.toString()}{" "}
       </Text>
-      {/* <Text
-        rotation={[-0.5 * Math.PI, 0, 0]}
-        position={positionText}
-        fontSize={0.2}
-        color="black"
-      >
-        {savePhase && savePhase.toString()}{" "}
-      </Text> */}
-      {/* {currentScore === null ? (
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={positionText}
-          fontSize={0.2}
-          color="black"
-        >
-          {possibleScore && possibleScore.toString()}{" "}
-        </Text>
-      ) : (
-        <Text
-          rotation={[-0.5 * Math.PI, 0, 0]}
-          position={positionText}
-          fontSize={0.2}
-          color="black"
-        >
-          {currentScore.toString()}{" "}
-        </Text>
-      )} */}
     </>
   );
 }

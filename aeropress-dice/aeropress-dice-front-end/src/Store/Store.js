@@ -1,6 +1,7 @@
 import create from "zustand";
 import { devtools } from "zustand/middleware";
 
+// This whole file is where I store state.
 const initial = {
   one: 0,
   two: 0,

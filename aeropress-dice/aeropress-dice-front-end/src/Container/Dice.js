@@ -1,14 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useFrame /*useLoader*/ } from "react-three-fiber";
+import { useFrame } from "react-three-fiber";
 import { useBox } from "use-cannon";
 import { useSpring } from "@react-spring/core";
 import { a } from "@react-spring/three";
 import { useStore } from "../Store/Store.js";
 import shallow from "zustand/shallow";
-// import { TextureLoader } from "three";
-// import { Html, RoundedBox, Box } from "drei";
 import { useTexture } from "@react-three/drei";
 
+// Where my dice receive their assigned number, id, and location in the scene.
 export default function Dice({ dice }) {
   const [rotation, setRotation] = useState();
   const [diceNumber, setDiceNumber] = useState(0);
@@ -56,6 +55,10 @@ export default function Dice({ dice }) {
     }
   }, [
     diceNumber,
+    diceNumberTwo,
+    diceNumberThree,
+    diceNumberFour,
+    diceNumberFive,
     dice.id,
     setDiceOne,
     setDiceTwo,
@@ -104,7 +107,6 @@ export default function Dice({ dice }) {
               parseFloat(rotation[0].toFixed(2)),
               parseFloat(rotation[1].toFixed(2))
             )
-            // getDiceNumberImage()
           );
           setDiceNumberTwo(
             getDiceNumberTwo(
@@ -159,6 +161,7 @@ export default function Dice({ dice }) {
     }
   });
 
+  // getDiceNumberOne - Five tell application what has been rolled based on rotation.
   const getDiceNumberFive = (rotationX, rotationZ) => {
     if (rotationX === 3.14 && rotationZ === 0)
       return "Do not stir before pressing.";
@@ -331,6 +334,7 @@ export default function Dice({ dice }) {
       return "Your choice of water temperature.";
   };
 
+  // Sets the dice in their position
   function setDice(dice) {
     if (!dice.set) {
       for (let i = 0; i < slots.length; i++) {
@@ -360,99 +364,67 @@ export default function Dice({ dice }) {
     document.body.style.cursor = hover ? "pointer" : "auto";
   }, [hover]);
 
-  // const instructions = [
-  //   [
-  //     temperature1,
-  //     temperature2,
-  //     temperature3,
-  //     temperature4,
-  //     temperature5,
-  //     yourChoice,
-  //   ],
-  //   [ratio1, ratio2, ratio3, ratio4, ratio5, yourChoice],
-  // ];
-  // debugger;
-  // const envMap = useCubeTexture(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png'], { path: 'cube/' })
-
-  // const temperature80C = React.useMemo(
-  //   () => new TextureLoader().load("textures/temperature/80C.jpeg"),
-  //   ["textures/temperature/80C.jpeg"]
-  // );
-  // const temperature85C = React.useMemo(
-  //   () => new TextureLoader().load("textures/temperature/85C.jpeg"),
-  //   []
-  // );
-  // const temperature90C = React.useMemo(
-  //   () => new TextureLoader().load("textures/temperature/90C.jpeg"),
-  //   []
-  // );
-  // const temperature95C = React.useMemo(
-  //   () => new TextureLoader().load("textures/temperature/95C.jpeg"),
-  //   []
-  // );
-  // const yourChoice = React.useMemo(
-  //   () => new TextureLoader().load("textures/your-choice.jpeg"),
-  //   []
-  // );
-
+  // Texture loader for all dice textures with related file paths.
+  // Takes in array of const variables and array of file paths and matches them
   const [
-    temperature75C,
-    temperature80C,
-    temperature85C,
-    temperature90C,
-    temperature95C,
+    // temperature75C,
+    // temperature80C,
+    // temperature85C,
+    // temperature90C,
+    // temperature95C,
     yourChoice,
-    ratio12200,
-    ratio15200,
-    ratio15250,
-    ratio24200,
-    ratio30200,
+    // ratio12200,
+    // ratio15200,
+    // ratio15250,
+    // ratio24200,
+    // ratio30200,
     stirCompass,
     noStir,
     stirOnce,
     stirTwice,
     twoDirection,
-    coarse4,
-    fine60,
-    medFine90,
-    med120,
-    veryFine30,
-    inverted3030,
-    inverted3060,
-    invertedNoBloom,
-    standard3030,
-    standard3060,
-    standardNoBloom,
+    // coarse4,
+    // fine60,
+    // medFine90,
+    // med120,
+    // veryFine30,
+    // inverted3030,
+    // inverted3060,
+    // invertedNoBloom,
+    // standard3030,
+    // standard3060,
+    // standardNoBloom,
   ] = useTexture([
-    "textures/temperature/75C.jpeg",
-    "textures/temperature/80C.jpeg",
-    "textures/temperature/85C.jpeg",
-    "textures/temperature/90C.jpeg",
-    "textures/temperature/95C.jpeg",
+    // "textures/temperature/75C.jpeg",
+    // "textures/temperature/80C.jpeg",
+    // "textures/temperature/85C.jpeg",
+    // "textures/temperature/90C.jpeg",
+    // "textures/temperature/95C.jpeg",
     "textures/your-choice.jpeg",
-    "textures/ratio/12-200.jpeg",
-    "textures/ratio/15-200.jpeg",
-    "textures/ratio/15-250.jpeg",
-    "textures/ratio/24-200.jpeg",
-    "textures/ratio/30-200.jpeg",
+    // "textures/ratio/12-200.jpeg",
+    // "textures/ratio/15-200.jpeg",
+    // "textures/ratio/15-250.jpeg",
+    // "textures/ratio/24-200.jpeg",
+    // "textures/ratio/30-200.jpeg",
     "textures/stir/compass.jpeg",
     "textures/stir/no-stir.jpeg",
     "textures/stir/stir1.jpeg",
     "textures/stir/stir2.jpeg",
     "textures/stir/two-direction.jpeg",
-    "textures/grind/coarse-4.jpeg",
-    "textures/grind/fine-60.jpeg",
-    "textures/grind/med-fine-90.jpeg",
-    "textures/grind/medium-120.jpeg",
-    "textures/grind/very-fine-30.jpeg",
-    "textures/bloom/inverted-30-30.jpeg",
-    "textures/bloom/inverted-30-60.jpeg",
-    "textures/bloom/inverted-no-bloom.jpeg",
-    "textures/bloom/standard-30-30.jpeg",
-    "textures/bloom/standard-30-60.jpeg",
-    "textures/bloom/standard-no-bloom.jpeg",
+    // "textures/grind/coarse-4.jpeg",
+    // "textures/grind/fine-60.jpeg",
+    // "textures/grind/med-fine-90.jpeg",
+    // "textures/grind/medium-120.jpeg",
+    // "textures/grind/very-fine-30.jpeg",
+    // "textures/bloom/inverted-30-30.jpeg",
+    // "textures/bloom/inverted-30-60.jpeg",
+    // "textures/bloom/inverted-no-bloom.jpeg",
+    // "textures/bloom/standard-30-30.jpeg",
+    // "textures/bloom/standard-30-60.jpeg",
+    // "textures/bloom/standard-no-bloom.jpeg",
   ]);
 
+  // Where my dice are physically created
   return (
     <a.group
       onPointerOver={(e) => {
@@ -467,8 +439,6 @@ export default function Dice({ dice }) {
         setDice(dice);
         e.stopPropagation();
       }}
-      // castShadow
-      // receiveShadow
       scale={[0.4, 0.4, 0.4]}
       ref={ref}
       dispose={null}
@@ -476,24 +446,12 @@ export default function Dice({ dice }) {
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[2.34, 0.04, 0]}>
-            <group
-              // castShadow
-              // receiveShadow
-              position={[-2.33, 0.04, 0]}
-              scale={[0.41, 0.41, 0.41]}
-            >
+            <group position={[-2.33, 0.04, 0]} scale={[0.41, 0.41, 0.41]}>
               <mesh castShadow /*receiveShadow*/>
                 <boxBufferGeometry
-                  // castShadow
-                  // receiveShadow
                   attach="geometry"
                   args={[2.11, 2.11, 2.11]}
-                  // radius={0.2}
-                  // smoothness={15}
                 />
-                {/* <Html scaleFactor={10}>
-                  <div class="content">{diceOne}</div>
-                </Html> */}
                 <a.meshStandardMaterial
                   attachArray="material"
                   // map={temperature80C}
@@ -503,8 +461,6 @@ export default function Dice({ dice }) {
                   // map={inverted3060}
                   color={props.color}
                 />
-                {/* <texture attach="map" map={temperature80C} /> */}
-                {/* </a.meshStandardMaterial> */}
                 <a.meshStandardMaterial
                   attachArray="material"
                   // map={temperature95C}
@@ -547,7 +503,6 @@ export default function Dice({ dice }) {
                   // map={standard3030}
                   color={props.color}
                 />
-                {/* </RoundedBox> */}
               </mesh>
             </group>
           </group>

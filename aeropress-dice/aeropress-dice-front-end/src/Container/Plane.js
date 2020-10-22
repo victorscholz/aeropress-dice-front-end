@@ -1,16 +1,15 @@
-import React, { Suspense, useState, useEffect, useRef } from "react";
-import { Canvas, useThree, useLoader } from "react-three-fiber";
+import React, { Suspense, useState, useEffect } from "react";
+import { Canvas, useThree } from "react-three-fiber";
 import { Physics, usePlane } from "use-cannon";
 import { useSpring, a } from "@react-spring/three";
-import { useStore /*useScore*/ } from "../Store/Store.js";
-import { OrbitControls, Text /*HTML, Stars, Sky*/ } from "drei";
+import { useStore } from "../Store/Store.js";
+import { OrbitControls, Text } from "drei";
 import { Loader, useGLTF } from "@react-three/drei";
 import Recipe from "./Recipe";
 import Dice from "./Dice";
-import { CubeTextureLoader, TextureLoader } from "three";
+import { CubeTextureLoader } from "three";
 
-// import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-
+// Creates the ground in my scene
 function Plane(props) {
   const [ref] = usePlane(() => ({
     rotation: [-Math.PI / 2, 0, 0],
@@ -30,6 +29,7 @@ function Plane(props) {
   );
 }
 
+// Creates the roll button
 function Button() {
   const setReroll = useStore((state) => state.setReroll);
   const setAmountRolled = useStore((state) => state.setAmountRolled);
@@ -88,7 +88,6 @@ function Button() {
           setStartedGame(true);
         }
       }}
-      // receiveShadow
       castShadow
       position={props.position}
       rotation={[-0.5 * Math.PI, 0, 0]}
@@ -110,7 +109,7 @@ function Button() {
           position={[0, 0.03, 0.03]}
           font="https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwK4vaqI.woff"
           letterSpacing={-0.02}
-          color={amountRolled <= 20 ? "white" : "gray"}
+          color={amountRolled <= 30 ? "white" : "gray"}
           fontSize={0.3}
         >
           Re-Roll Dice
@@ -143,6 +142,7 @@ function Button() {
 //   );
 // };
 
+// Creates my save button
 function Save() {
   const diceOne = useStore((state) => state.diceOne);
   const diceTwo = useStore((state) => state.diceTwo);
@@ -209,7 +209,6 @@ function Save() {
         // }
         // save recipe
       }}
-      // receiveShadow
       castShadow
       position={props.position}
       rotation={[-0.5 * Math.PI, 0, 0]}
@@ -229,10 +228,10 @@ function Save() {
   );
 }
 
+// Creates the paper that my recipes render on
 function Paper(props) {
   return (
     <mesh
-      // receiveShadow
       castShadow
       position={[-3.2, 0.01, -0.3]}
       rotation={[-0.5 * Math.PI, 0, 0]}
@@ -243,6 +242,7 @@ function Paper(props) {
   );
 }
 
+// Creates cube map for scene
 function SkyBox() {
   const { scene } = useThree();
   const loader = new CubeTextureLoader();
@@ -260,6 +260,7 @@ function SkyBox() {
   return null;
 }
 
+// Loaded in GLTF model of a coffee mug
 function Coffee() {
   const { nodes, materials } = useGLTF("assets/coffee_mug/scene.gltf", true);
 
@@ -267,22 +268,22 @@ function Coffee() {
     <group
       position={[0.5, -19, 2]}
       scale={[0.75, 0.75, 0.75]}
-      castShadow={true}
     >
       <mesh
         material={materials["Coffee"]}
         geometry={nodes.Mug1_Coffee_0.geometry}
-        castShadow={true}
       />
       <mesh
         material={materials["material"]}
         geometry={nodes.Mug1_Mug_0.geometry}
         castShadow={true}
+        // receiveShadow={true}
       />
     </group>
   );
 }
 
+// Loaded in GLTF model of a table
 function Table() {
   const { nodes, materials } = useGLTF("assets/coffee_table/scene.gltf", true);
 
@@ -295,11 +296,14 @@ function Table() {
       <mesh
         material={materials["Fjaellbo"]}
         geometry={nodes.FjaellboBodyGameMergedLowPoly_Fjaellbo_0.geometry}
+        // castShadow={true}
+        // receiveShadow={true}
       />
     </group>
   );
 }
 
+// Where everything is rendered in my scene
 export default () => {
   const dices = useStore((state) => state.dices);
 
@@ -327,7 +331,7 @@ export default () => {
           shadow-camera-left={-8.1}
           shadow-camera-bottom={8.1}
           shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024} 
+          shadow-mapSize-height={1024}
           castShadow
         />
         <OrbitControls />
@@ -344,11 +348,9 @@ export default () => {
             >
               Aeropress Dice
             </Text>
-            {/* onClick{function}  to function(){ setState} to <ChildComponent props={this.state}/> */}
             <Recipe />
             <Button />
             <Save />
-            {/* <Stars /> */}
             <Coffee castShadow />
             <Table />
             <Plane />
