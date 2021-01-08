@@ -358,8 +358,6 @@ export default function Dice({ dice }) {
     }
   }
 
-  // const props = useSpring({ color: hover ? "gray" : "white" });
-
   useEffect(() => {
     document.body.style.cursor = hover ? "pointer" : "auto";
   }, [hover]);
