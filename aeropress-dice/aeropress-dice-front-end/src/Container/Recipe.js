@@ -285,7 +285,7 @@ function ScoreCell({
       <Plane
         onPointerOver={() => set(true)}
         onPointerOut={() => set(false)}
-        onClick={() => {
+        onPointerDown={() => {
           if (possibleScoresCalculation) {
             if (possibleScore) setCurrentScore(possibleScore, name);
             else setCurrentScore("x", name);
