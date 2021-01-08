@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useFrame } from "react-three-fiber";
 import { useBox } from "use-cannon";
-import { useSpring } from "@react-spring/core";
+// import { useSpring } from "@react-spring/core";
 import { a } from "@react-spring/three";
 import { useStore } from "../Store/Store.js";
 import shallow from "zustand/shallow";
@@ -358,7 +358,7 @@ export default function Dice({ dice }) {
     }
   }
 
-  const props = useSpring({ color: hover ? "gray" : "white" });
+  // const props = useSpring({ color: hover ? "gray" : "white" });
 
   useEffect(() => {
     document.body.style.cursor = hover ? "pointer" : "auto";
@@ -459,7 +459,7 @@ export default function Dice({ dice }) {
                   map={stirOnce}
                   // map={fine60}
                   // map={inverted3060}
-                  color={props.color}
+                  color={white}
                 />
                 <a.meshStandardMaterial
                   attachArray="material"
@@ -468,13 +468,13 @@ export default function Dice({ dice }) {
                   map={stirTwice}
                   // map={veryFine30}
                   // map={standard3060}
-                  color={props.color}
+                  color={white}
                 />
                 <a.meshStandardMaterial
                   attachArray="material"
                   map={yourChoice}
                   // map={standardNoBloom}
-                  color={props.color}
+                  color={white}
                 />
                 <a.meshStandardMaterial
                   attachArray="material"
@@ -483,7 +483,7 @@ export default function Dice({ dice }) {
                   map={noStir}
                   // map={coarse4}
                   // map={inverted3030}
-                  color={props.color}
+                  color={white}
                 />
                 <a.meshStandardMaterial
                   attachArray="material"
@@ -492,7 +492,7 @@ export default function Dice({ dice }) {
                   map={stirCompass}
                   // map={medFine90}
                   // map={invertedNoBloom}
-                  color={props.color}
+                  color={white}
                 />
                 <a.meshStandardMaterial
                   attachArray="material"
@@ -501,7 +501,7 @@ export default function Dice({ dice }) {
                   map={twoDirection}
                   // map={med120}
                   // map={standard3030}
-                  color={props.color}
+                  color={white}
                 />
               </mesh>
             </group>
