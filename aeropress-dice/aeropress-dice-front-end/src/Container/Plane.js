@@ -4,7 +4,7 @@ import { Physics, usePlane } from "use-cannon";
 import { useSpring, a } from "@react-spring/three";
 import { useStore } from "../Store/Store.js";
 import { OrbitControls, Text } from "drei";
-import { Loader, useGLTF } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import Recipe from "./Recipe";
 import Dice from "./Dice";
 import { CubeTextureLoader } from "three";
@@ -373,7 +373,7 @@ export default () => {
           </Suspense>
         </Physics>
       </Canvas>
-      <Loader />
+      {/* <Loader /> */}
     </>
   );
 };
