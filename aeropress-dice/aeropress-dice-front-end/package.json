@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-spring/core": "^9.0.0-rc.3",
     "@react-spring/three": "^9.0.0-rc.3",
     "@react-three/drei": "^2.2.15",
     "@testing-library/jest-dom": "^4.2.4",
@@ -21,6 +22,8 @@
     "zustand": "^3.3.0"
   },
   "scripts": {
+    "react-spring-issue-1078": "find node_modules -path \\*@react-spring/\\*/package.json -exec sed -i.bak 's/\"sideEffects\": false/\"sideEffects\": true/g' {} +",
+    "postinstall": "npm run react-spring-issue-1078",
     "dev": "react-scripts start",
     "start": "serve -s build",
     "build": "react-scripts build",
