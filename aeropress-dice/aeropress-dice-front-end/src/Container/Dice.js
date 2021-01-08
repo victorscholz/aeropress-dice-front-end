@@ -459,7 +459,7 @@ export default function Dice({ dice }) {
                   map={stirOnce}
                   // map={fine60}
                   // map={inverted3060}
-                  color={white}
+                  color={'#FFFFFF'}
                 />
                 <a.meshStandardMaterial
                   attachArray="material"
@@ -468,13 +468,13 @@ export default function Dice({ dice }) {
                   map={stirTwice}
                   // map={veryFine30}
                   // map={standard3060}
-                  color={white}
+                  color={'#FFFFFF'}
                 />
                 <a.meshStandardMaterial
                   attachArray="material"
                   map={yourChoice}
                   // map={standardNoBloom}
-                  color={white}
+                  color={'#FFFFFF'}
                 />
                 <a.meshStandardMaterial
                   attachArray="material"
@@ -483,7 +483,7 @@ export default function Dice({ dice }) {
                   map={noStir}
                   // map={coarse4}
                   // map={inverted3030}
-                  color={white}
+                  color={'#FFFFFF'}
                 />
                 <a.meshStandardMaterial
                   attachArray="material"
@@ -492,7 +492,7 @@ export default function Dice({ dice }) {
                   map={stirCompass}
                   // map={medFine90}
                   // map={invertedNoBloom}
-                  color={white}
+                  color={'#FFFFFF'}
                 />
                 <a.meshStandardMaterial
                   attachArray="material"
@@ -501,7 +501,7 @@ export default function Dice({ dice }) {
                   map={twoDirection}
                   // map={med120}
                   // map={standard3030}
-                  color={white}
+                  color={'#FFFFFF'}
                 />
               </mesh>
             </group>
