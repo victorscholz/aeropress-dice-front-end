@@ -86,7 +86,7 @@ function Button() {
         e.stopPropagation();
         set(false);
       }}
-      onClick={() => {
+      onPointerDown={() => {
         setGamePhase("Roll Dice");
         {
           setPlaybackRate(playbackRate);
@@ -202,7 +202,7 @@ function Save() {
         e.stopPropagation();
         set(false);
       }}
-      onClick={() => {
+      onPointerDown={() => {
         {
           // setWritebackRate(writebackRate)
           write(writing);

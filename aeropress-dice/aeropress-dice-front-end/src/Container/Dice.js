@@ -435,7 +435,7 @@ export default function Dice({ dice }) {
         e.stopPropagation();
         set(false);
       }}
-      onClick={(e) => {
+      onPointerDown={(e) => {
         setDice(dice);
         e.stopPropagation();
       }}
