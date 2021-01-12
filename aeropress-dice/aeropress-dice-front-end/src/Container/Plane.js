@@ -301,7 +301,7 @@ function Table() {
 
   return (
     <group
-      position={[0.5, -4.85, -0.3]}
+      position={[0.5, -4.88, -0.3]}
       scale={[25, 25, 25]}
       rotation={[-1.571, 0, 0]}
     >
